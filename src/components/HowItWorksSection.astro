@@ -1,0 +1,72 @@
+---
+import { Image } from 'astro:assets';
+import planesImage from '../assets/how_work/planes.png';
+import prepareImage from '../assets/how_work/prepare.png';
+import sliceImage from '../assets/how_work/slice.png';
+
+const steps = [
+	{
+		title: 'Prepare the Model',
+		description:
+			'Import a 3D model and identify the surfaces that will benefit most from multiplanar printing.',
+		image: prepareImage,
+		alt: 'A 3D model being prepared in the Pentos workflow',
+	},
+	{
+		title: 'Select Planes Automatically',
+		description:
+			'Use the automatic plane selector to find useful build orientations and divide the model into printable regions.',
+		image: planesImage,
+		alt: 'The Pentos automatic plane selector identifying print planes on a model',
+	},
+	{
+		title: 'Slice and Print',
+		description:
+			'Slice each region, generate coordinated 5-axis G-code, and print as the platform tilts and rotates.',
+		image: sliceImage,
+		alt: 'A multiplanar model being sliced into coordinated five-axis toolpaths',
+	},
+];
+---
+
+<section
+	id="how-it-works"
+	class="border-t border-border bg-background"
+	aria-labelledby="how-it-works-title"
+>
+	<div class="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16 xl:px-12">
+		<h2
+			id="how-it-works-title"
+			class="text-center font-heading text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
+		>
+			How Pentos <span class="text-primary">Works</span>
+		</h2>
+
+		<ol class="mt-10 grid gap-5 sm:grid-cols-3">
+			{
+				steps.map((step) => (
+					<li class="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+						<div class="aspect-video overflow-hidden bg-muted">
+							<Image
+								class="h-full w-full object-cover"
+								src={step.image}
+								alt={step.alt}
+								width={700}
+								height={400}
+							/>
+						</div>
+
+						<div class="flex flex-1 flex-col p-5 xl:p-6">
+							<h3 class="font-heading text-lg font-semibold tracking-tight">
+								{step.title}
+							</h3>
+							<p class="mt-2 text-sm leading-6 text-muted-foreground">
+								{step.description}
+							</p>
+						</div>
+					</li>
+				))
+			}
+		</ol>
+	</div>
+</section>

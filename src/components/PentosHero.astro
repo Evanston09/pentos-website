@@ -10,6 +10,7 @@ import hardwareRetrofit from '../assets/solutions/5-Axis-Retrofit.jpg';
 import openSourcePreview from '../assets/solutions/open-source.png';
 import slicerPreview from '../assets/solutions/pentos-slicer-preview.jpg';
 import DemoSection from './DemoSection.astro';
+import HowItWorksSection from './HowItWorksSection.astro';
 import Button from './ui/Button.astro';
 import FeatureCard from './ui/FeatureCard.astro';
 
@@ -18,7 +19,6 @@ const navItems = [
 	'Project',
 	'Hardware',
 	'Software',
-	'Results',
 	'Docs',
 	'GitHub',
 ];
@@ -59,7 +59,7 @@ const solutions = [
 	{
 		title: 'Multiplanar Slicing Workflow',
 		description:
-			'Define multiple print planes, slice each region with existing tools, and convert the resulting G-code into coordinated 5-axis movement.',
+			'Use the automatic plane selector to define multiple print planes, slice each region with existing tools, and convert the resulting G-code into coordinated 5-axis movement.',
 		image: slicerPreview,
 		alt: 'Pentos slicer preview showing a model divided across multiple print planes',
 		imageFit: 'contain' as const,
@@ -224,3 +224,4 @@ const solutions = [
 </section>
 
 <DemoSection />
+<HowItWorksSection />
