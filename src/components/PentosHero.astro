@@ -1,0 +1,101 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import pentosRender from '../assets/pentos_render.png';
+import logo from '../assets/logo.png';
+import Button from './ui/Button.astro';
+
+const navItems = [
+	'Home',
+	'Project',
+	'Hardware',
+	'Software',
+	'Results',
+	'Docs',
+	'GitHub',
+];
+---
+
+<div class="flex min-h-svh flex-col">
+	<header class="h-20 border-b border-border bg-background">
+		<div class="mx-auto flex h-full max-w-7xl items-center px-6 lg:px-8 xl:px-12">
+			<a class="flex w-40 items-center xl:w-48" href="/" aria-label="Pentos home">
+				<Image
+					class="h-8 w-auto"
+					src={logo}
+					alt="Pentos"
+				/>
+			</a>
+
+			<nav class="hidden flex-1 lg:block" aria-label="Primary navigation">
+				<ul class="flex items-center justify-center gap-4 xl:gap-6">
+					{
+						navItems.map((item) => (
+							<li>
+								<a
+									class:list={[
+										'relative inline-flex h-20 items-center text-sm font-medium no-underline transition-colors hover:text-foreground',
+										item === 'Home'
+											? 'text-foreground after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-secondary'
+											: 'text-muted-foreground',
+									]}
+									href={item === 'Home' ? '/' : `#${item.toLowerCase()}`}
+								>
+									{item}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+
+			<div class="ml-auto flex w-40 justify-end xl:w-48">
+				<Button variant="primary" href="#project">
+					Open Slicer
+				</Button>
+			</div>
+		</div>
+	</header>
+
+	<main class="mx-auto flex max-w-7xl flex-1 px-6 lg:px-8 xl:px-12">
+		<section
+			class="grid flex-1 items-center gap-8 py-16 lg:grid-cols-2 xl:gap-12 xl:py-20"
+			aria-labelledby="hero-title"
+		>
+			<div class="max-w-2xl">
+				<h1
+					id="hero-title"
+					class="font-heading text-5xl leading-tight font-semibold tracking-tight sm:text-6xl xl:text-7xl"
+				>
+					Accessible 5-axis<br />
+					3D printing<br />
+					<span class="text-secondary">is here.</span>
+				</h1>
+				<p class="mt-7 max-w-xl leading-7 text-muted-foreground">
+					Pentos is an open-source hardware retrofit and software workflow that brings affordable
+					5-axis capability to an Ender 3. It enables multiplanar printing with the goal of reducing
+					support material, improving part strength, and producing better surface finishes.
+				</p>
+
+				<div class="mt-8 flex flex-col gap-3 sm:flex-row">
+					<Button class="w-full sm:w-auto" variant="secondary" size="lg" href="#project">
+						Explore the Project
+					</Button>
+					<Button class="w-full sm:w-auto" variant="outline" size="lg" href="#github">
+						<Icon name="hugeicons:github" />
+						View GitHub
+					</Button>
+				</div>
+			</div>
+
+			<div class="max-w-2xl lg:translate-x-12 lg:scale-125 xl:translate-x-16">
+				<Image
+					class="w-full"
+					src={pentosRender}
+					alt="Pentos five-axis Ender 3 printer retrofit"
+					loading="eager"
+				/>
+			</div>
+		</section>
+	</main>
+</div>

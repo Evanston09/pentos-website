@@ -1,0 +1,50 @@
+---
+type Variant = 'primary' | 'secondary' | 'outline';
+type Size = 'sm' | 'lg';
+
+interface Props {
+	variant?: Variant;
+	size?: Size;
+	href?: string;
+	type?: 'button' | 'submit' | 'reset';
+	class?: string;
+	[key: string]: unknown;
+}
+
+const {
+	variant = 'primary',
+	size = 'sm',
+	href,
+	type = 'button',
+	class: className,
+	...attributes
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+
+const variants: Record<Variant, string> = {
+	primary: 'border-transparent bg-primary text-white hover:bg-primary/80',
+	secondary: 'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
+	outline:
+		'border-border bg-background text-foreground hover:bg-muted dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
+};
+
+const sizes: Record<Size, string> = {
+	sm: 'h-10 px-5',
+	lg: 'h-11 px-6',
+};
+---
+
+<Tag
+	href={href}
+	type={href ? undefined : type}
+	class:list={[
+		'inline-flex items-center justify-center gap-2 rounded-lg border text-sm font-semibold no-underline transition-colors',
+		variants[variant],
+		sizes[size],
+		className,
+	]}
+	{...attributes}
+>
+	<slot />
+</Tag>
