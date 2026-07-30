@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import planesImage from '../assets/how_work/planes.png';
 import prepareImage from '../assets/how_work/prepare.png';
 import sliceImage from '../assets/how_work/slice.png';
+import Button from './ui/Button.astro';
 
 const steps = [
 	{
@@ -34,7 +35,7 @@ const steps = [
 	class="border-t border-border bg-background"
 	aria-labelledby="how-it-works-title"
 >
-	<div class="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16 xl:px-12">
+	<div class="mx-auto max-w-7xl px-6 pt-12 lg:px-8 lg:pt-16 xl:px-12">
 		<h2
 			id="how-it-works-title"
 			class="text-center font-heading text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
@@ -68,5 +69,28 @@ const steps = [
 				))
 			}
 		</ol>
+
+		<div
+			class="mt-10 flex flex-col gap-6 rounded-t-2xl bg-muted/40 px-6 py-8 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10"
+		>
+			<div class="max-w-2xl">
+				<h3 class="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
+					Ready to put five axes to work?
+				</h3>
+				<p class="mt-2 leading-7 text-muted-foreground">
+					Explore the Pentos slicer, hardware, and documentation to start building your own
+					multiplanar workflow.
+				</p>
+			</div>
+
+			<div class="flex flex-col gap-3 sm:flex-row lg:shrink-0">
+				<Button class="w-full sm:w-auto" variant="primary" size="lg" href="#project">
+					Open Slicer
+				</Button>
+				<Button class="w-full sm:w-auto" variant="outline" size="lg" href="#docs">
+					Read the Docs
+				</Button>
+			</div>
+		</div>
 	</div>
 </section>

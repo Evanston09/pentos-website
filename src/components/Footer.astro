@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+
+const projectLinks = [
+	{ label: 'Why 5-Axis', href: '#problem' },
+	{ label: 'Our Solution', href: '#solution' },
+	{ label: 'Demo', href: '#results' },
+	{ label: 'How It Works', href: '#how-it-works' },
+];
+
+const resourceLinks = [
+	{ label: 'Hardware', href: '#hardware' },
+	{ label: 'Software', href: '#software' },
+	{ label: 'Documentation', href: '#docs' },
+	{ label: 'GitHub', href: '#github' },
+];
+---
+
+<footer class="border-t border-border bg-background text-foreground">
+	<div class="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16 xl:px-12">
+		<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+			<div class="max-w-sm sm:col-span-2">
+				<a class="inline-flex items-center" href="/" aria-label="Pentos home">
+					<Image class="h-8 w-auto" src={logo} alt="Pentos" />
+				</a>
+				<p class="mt-5 max-w-md leading-7 text-muted-foreground">
+					An open-source hardware retrofit and software workflow making five-axis 3D printing
+					more accessible.
+				</p>
+			</div>
+
+			<nav aria-labelledby="footer-project-title">
+				<h2
+					id="footer-project-title"
+					class="font-heading text-sm font-semibold tracking-wide text-foreground"
+				>
+					Project
+				</h2>
+				<ul class="mt-4 space-y-3">
+					{
+						projectLinks.map((link) => (
+							<li>
+								<a
+									class="text-sm text-muted-foreground no-underline transition-colors hover:text-foreground hover:underline"
+									href={link.href}
+								>
+									{link.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+
+			<nav aria-labelledby="footer-resources-title">
+				<h2
+					id="footer-resources-title"
+					class="font-heading text-sm font-semibold tracking-wide text-foreground"
+				>
+					Resources
+				</h2>
+				<ul class="mt-4 space-y-3">
+					{
+						resourceLinks.map((link) => (
+							<li>
+								<a
+									class="text-sm text-muted-foreground no-underline transition-colors hover:text-foreground hover:underline"
+									href={link.href}
+								>
+									{link.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+		</div>
+
+		<div
+			class="mt-12 flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between"
+		>
+			<p>&copy; {new Date().getFullYear()} Pentos. All rights reserved.</p>
+			<p>Open-source five-axis 3D printing.</p>
+		</div>
+	</div>
+</footer>

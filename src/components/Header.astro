@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import Button from './ui/Button.astro';
+
+const navItems = [
+	'Home',
+	'Project',
+	'Hardware',
+	'Software',
+	'Docs',
+	'GitHub',
+];
+---
+
+<header class="h-20 border-b border-border bg-background">
+	<div class="mx-auto flex h-full max-w-7xl items-center px-6 lg:px-8 xl:px-12">
+		<a class="flex w-40 items-center xl:w-48" href="/" aria-label="Pentos home">
+			<Image
+				class="h-8 w-auto"
+				src={logo}
+				alt="Pentos"
+				loading="eager"
+			/>
+		</a>
+
+		<nav class="hidden flex-1 lg:block" aria-label="Primary navigation">
+			<ul class="flex items-center justify-center gap-4 xl:gap-6">
+				{
+					navItems.map((item) => (
+						<li>
+							<a
+								class:list={[
+									'relative inline-flex h-20 items-center text-sm font-medium no-underline transition-colors hover:text-foreground',
+									item === 'Home'
+										? 'text-foreground after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-secondary'
+										: 'text-muted-foreground',
+								]}
+								href={item === 'Home' ? '/' : `#${item.toLowerCase()}`}
+							>
+								{item}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+
+		<div class="ml-auto flex w-40 justify-end xl:w-48">
+			<Button variant="primary" href="#project">
+				Open Slicer
+			</Button>
+		</div>
+	</div>
+</header>

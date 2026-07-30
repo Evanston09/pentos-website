@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import pentosRender from '../assets/pentos_render.png';
-import logo from '../assets/logo.png';
 import excessiveSupports from '../assets/problems/excessive-supports.jpg';
 import poorSurfaceFinish from '../assets/problems/poor-surface-finish.jpg';
 import weakLayerBonding from '../assets/problems/weak-layer-bonds.jpg';
@@ -10,18 +9,11 @@ import hardwareRetrofit from '../assets/solutions/5-Axis-Retrofit.jpg';
 import openSourcePreview from '../assets/solutions/open-source.png';
 import slicerPreview from '../assets/solutions/pentos-slicer-preview.jpg';
 import DemoSection from './DemoSection.astro';
+import Footer from './Footer.astro';
+import Header from './Header.astro';
 import HowItWorksSection from './HowItWorksSection.astro';
 import Button from './ui/Button.astro';
 import FeatureCard from './ui/FeatureCard.astro';
-
-const navItems = [
-	'Home',
-	'Project',
-	'Hardware',
-	'Software',
-	'Docs',
-	'GitHub',
-];
 
 const problems = [
 	{
@@ -78,45 +70,7 @@ const solutions = [
 ---
 
 <div class="flex min-h-[95vh] flex-col">
-	<header class="h-20 border-b border-border bg-background">
-		<div class="mx-auto flex h-full max-w-7xl items-center px-6 lg:px-8 xl:px-12">
-			<a class="flex w-40 items-center xl:w-48" href="/" aria-label="Pentos home">
-				<Image
-					class="h-8 w-auto"
-					src={logo}
-					alt="Pentos"
-				/>
-			</a>
-
-			<nav class="hidden flex-1 lg:block" aria-label="Primary navigation">
-				<ul class="flex items-center justify-center gap-4 xl:gap-6">
-					{
-						navItems.map((item) => (
-							<li>
-								<a
-									class:list={[
-										'relative inline-flex h-20 items-center text-sm font-medium no-underline transition-colors hover:text-foreground',
-										item === 'Home'
-											? 'text-foreground after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-secondary'
-											: 'text-muted-foreground',
-									]}
-									href={item === 'Home' ? '/' : `#${item.toLowerCase()}`}
-								>
-									{item}
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</nav>
-
-			<div class="ml-auto flex w-40 justify-end xl:w-48">
-				<Button variant="primary" href="#project">
-					Open Slicer
-				</Button>
-			</div>
-		</div>
-	</header>
+	<Header />
 
 	<main class="mx-auto flex max-w-7xl flex-1 px-6 lg:px-8 xl:px-12">
 		<section
@@ -225,3 +179,4 @@ const solutions = [
 
 <DemoSection />
 <HowItWorksSection />
+<Footer />
