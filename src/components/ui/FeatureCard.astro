@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+	title: string;
+	description: string;
+	image: ImageMetadata;
+	alt: string;
+	imageFit?: 'cover' | 'contain';
+	href?: string;
+}
+
+const { title, description, image, alt, imageFit = 'cover', href } = Astro.props;
+---
+
+<article class="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+	<div class="relative grid aspect-square place-items-center overflow-hidden bg-muted">
+		<Image
+			class:list={[
+				'h-full w-full',
+				imageFit === 'contain' ? 'object-contain' : 'object-cover',
+			]}
+			src={image}
+			alt={alt}
+			width={500}
+			height={500}
+		/>
+	</div>
+
+	<div class="flex flex-1 flex-col p-5 xl:p-6">
+		<h3 class="font-heading text-lg font-semibold tracking-tight">
+			{title}
+		</h3>
+		<p class="mt-2 text-sm leading-6 text-muted-foreground">
+			{description}
+		</p>
+		{
+			href && (
+				<a
+					class="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-medium text-secondary no-underline hover:underline"
+					href={href}
+				>
+					Learn more
+					<Icon class="size-4" name="hugeicons:arrow-right-02" aria-hidden="true" />
+				</a>
+			)
+		}
+	</div>
+</article>
