@@ -8,6 +8,10 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Styling
+
+Use Tailwind's default utility classes. Do not use arbitrary-value classes with square-bracket syntax.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build

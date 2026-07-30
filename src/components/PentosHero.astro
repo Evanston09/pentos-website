@@ -3,6 +3,9 @@ import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import pentosRender from '../assets/pentos_render.png';
 import logo from '../assets/logo.png';
+import excessiveSupports from '../assets/problems/excessive-supports.jpg';
+import poorSurfaceFinish from '../assets/problems/poor-surface-finish.jpg';
+import weakLayerBonding from '../assets/problems/weak-layer-bonds.jpg';
 import Button from './ui/Button.astro';
 
 const navItems = [
@@ -14,9 +17,33 @@ const navItems = [
 	'Docs',
 	'GitHub',
 ];
+
+const problems = [
+	{
+		title: 'Excessive Supports',
+		description:
+			'Complex overhangs require additional material, increase print time, and often leave marks after removal.',
+		image: excessiveSupports,
+		alt: 'A complex printed part encased in dense support structures',
+	},
+	{
+		title: 'Weak Layer Bonding',
+		description:
+			'Parts are often weakest between layers, especially when forces act across the print direction.',
+		image: weakLayerBonding,
+		alt: 'A printed test part splitting along a horizontal layer line under stress',
+	},
+	{
+		title: 'Poor Surface Finish',
+		description:
+			'Curved and angled surfaces can appear rough because they are approximated using stacked horizontal layers.',
+		image: poorSurfaceFinish,
+		alt: 'A close view of stair-stepping across a curved printed surface',
+	},
+];
 ---
 
-<div class="flex min-h-svh flex-col">
+<div class="flex min-h-[95vh] flex-col">
 	<header class="h-20 border-b border-border bg-background">
 		<div class="mx-auto flex h-full max-w-7xl items-center px-6 lg:px-8 xl:px-12">
 			<a class="flex w-40 items-center xl:w-48" href="/" aria-label="Pentos home">
@@ -100,3 +127,55 @@ const navItems = [
 		</section>
 	</main>
 </div>
+
+<section
+	id="problem"
+	class="border-y border-border bg-muted/40"
+	aria-labelledby="problem-title"
+>
+	<div
+		class="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-3 lg:gap-16 lg:px-8 lg:py-28 xl:px-12"
+	>
+		<div class="max-w-xl lg:sticky lg:top-10 lg:self-start">
+			<h2
+				id="problem-title"
+				class="font-heading text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
+			>
+				Why 5-axis<br class="hidden lg:block" />
+				printing <span class="text-secondary">matters.</span>
+			</h2>
+			<p class="mt-6 leading-7 text-muted-foreground">
+				Conventional 3-axis FDM printers build parts in flat, horizontal layers. That limits
+				each toolpath to a single direction—adding unnecessary support material, weakening
+				layer bonds, and degrading angled or complex surfaces.
+			</p>
+		</div>
+
+		<div class="grid gap-5 sm:grid-cols-3 lg:col-span-2">
+			{
+				problems.map((problem) => (
+					<article class="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+						<div class="relative aspect-square overflow-hidden bg-muted">
+							<Image
+								class="h-full w-full object-cover"
+								src={problem.image}
+								alt={problem.alt}
+								width={500}
+								height={500}
+							/>
+						</div>
+
+						<div class="p-5 xl:p-6">
+							<h3 class="font-heading text-lg font-semibold tracking-tight">
+								{problem.title}
+							</h3>
+							<p class="mt-2 text-sm leading-6 text-muted-foreground">
+								{problem.description}
+							</p>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
