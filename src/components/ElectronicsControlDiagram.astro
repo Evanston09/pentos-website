@@ -1,0 +1,171 @@
+---
+const controlBoards = [
+	{
+		label: 'Existing Printer Control',
+		title: 'Ender 3 Motherboard',
+		description: 'Controls the original printer hardware and toolhead.',
+	},
+	{
+		label: 'Added Axis Control',
+		title: 'Any Motherboard',
+		description: 'Controls the tilt and spin axes and reads homing sensors.',
+	},
+];
+
+const controlledHardware = [
+	{
+		label: 'Ender 3 Hardware',
+		title: 'Motors and Toolhead',
+		description: 'X, Y, and Z motors, extruder, and hotend/nozzle systems.',
+	},
+	{
+		label: 'Pentos Motion',
+		title: 'Tilt and Spin Motors',
+		description: 'Move the two added build-platform axes.',
+	},
+	{
+		label: 'Homing Feedback',
+		title: 'Hall-Effect Sensors',
+		description: 'Provide non-contact homing feedback to the added motherboard.',
+	},
+];
+---
+
+<div class="relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm lg:p-10">
+	<svg
+		class="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
+		viewBox="0 0 1200 500"
+		preserveAspectRatio="none"
+		aria-hidden="true"
+	>
+		<path class="signal-track" d="M 275 250 H 345" />
+		<path class="signal-track" d="M 555 250 H 600 V 170 H 635" />
+		<path class="signal-track" d="M 555 250 H 600 V 330 H 635" />
+		<path class="signal-track" d="M 845 170 H 890 V 105 H 925" />
+		<path class="signal-track" d="M 845 330 H 890 V 250 H 925" />
+		<path class="signal-track" d="M 845 330 H 890 V 395 H 925" />
+
+		<path class="signal-path" d="M 275 250 H 345" />
+		<path class="signal-path" d="M 555 250 H 600 V 170 H 635" />
+		<path class="signal-path" d="M 555 250 H 600 V 330 H 635" />
+		<path class="signal-path" d="M 845 170 H 890 V 105 H 925" />
+		<path class="signal-path" d="M 845 330 H 890 V 250 H 925" />
+		<path class="feedback-path" d="M 925 395 H 890 V 330 H 845" />
+	</svg>
+
+	<div class="relative grid items-center gap-6 lg:grid-cols-4 lg:gap-12">
+		<div class="rounded-xl border border-border bg-background p-5">
+			<p class="text-xs font-semibold tracking-wider text-secondary uppercase">Toolpath Input</p>
+			<h3 class="mt-2 font-heading text-xl font-semibold tracking-tight">Pentos Slicer</h3>
+			<p class="mt-2 text-sm leading-6 text-muted-foreground">
+				Produces coordinated five-axis G-code.
+			</p>
+		</div>
+
+		<div class="mobile-signal h-8 lg:hidden" aria-hidden="true"></div>
+
+		<div class="rounded-xl border border-border bg-background p-5">
+			<p class="text-xs font-semibold tracking-wider text-secondary uppercase">Klipper Host</p>
+			<h3 class="mt-2 font-heading text-xl font-semibold tracking-tight">Raspberry Pi</h3>
+			<p class="mt-2 text-sm leading-6 text-muted-foreground">
+				Runs Klipper and coordinates commands across both motherboards.
+			</p>
+		</div>
+
+		<div class="mobile-signal h-8 lg:hidden" aria-hidden="true"></div>
+
+		<div class="grid gap-6 border-l-2 border-primary/30 pl-5 lg:border-0 lg:pl-0">
+			{
+				controlBoards.map((board) => (
+					<div class="rounded-xl border border-border bg-background p-4">
+						<p class="text-xs font-semibold tracking-wider text-secondary uppercase">
+							{board.label}
+						</p>
+						<h3 class="mt-1 font-heading font-semibold tracking-tight">{board.title}</h3>
+						<p class="mt-1 text-sm leading-6 text-muted-foreground">{board.description}</p>
+					</div>
+				))
+			}
+		</div>
+
+		<div class="mobile-signal h-8 lg:hidden" aria-hidden="true"></div>
+
+		<div class="grid gap-4 border-l-2 border-primary/30 pl-5 lg:border-0 lg:pl-0">
+			{
+				controlledHardware.map((hardware) => (
+					<div class="rounded-xl border border-border bg-background p-4">
+						<p class="text-xs font-semibold tracking-wider text-secondary uppercase">
+							{hardware.label}
+						</p>
+						<h3 class="mt-1 font-heading font-semibold tracking-tight">{hardware.title}</h3>
+						<p class="mt-1 text-sm leading-6 text-muted-foreground">{hardware.description}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+
+</div>
+
+<style>
+	.signal-track {
+		fill: none;
+		stroke: var(--primary);
+		stroke-width: 4;
+		stroke-linecap: round;
+		opacity: 0.25;
+	}
+
+	.signal-path,
+	.feedback-path {
+		fill: none;
+		stroke-width: 4;
+		stroke-linecap: round;
+		stroke-dasharray: 10 14;
+		animation: signal-flow 1.2s linear infinite;
+	}
+
+	.signal-path {
+		stroke: var(--primary);
+	}
+
+	.feedback-path {
+		stroke: var(--primary);
+		animation-direction: reverse;
+	}
+
+	.mobile-signal {
+		width: 4px;
+		margin-inline: auto;
+		border-radius: 9999px;
+		background: repeating-linear-gradient(
+			to bottom,
+			var(--primary) 0,
+			var(--primary) 8px,
+			transparent 8px,
+			transparent 14px
+		);
+		background-size: 100% 28px;
+		animation: mobile-signal-flow 1.2s linear infinite;
+	}
+
+	@keyframes signal-flow {
+		to {
+			stroke-dashoffset: -48;
+		}
+	}
+
+	@keyframes mobile-signal-flow {
+		to {
+			background-position-y: 28px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.signal-path,
+		.feedback-path,
+		.mobile-signal {
+			animation: none;
+		}
+	}
+</style>

@@ -3,17 +3,21 @@ import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
 
 const projectLinks = [
-	{ label: 'Why 5-Axis', href: '#problem' },
-	{ label: 'Our Solution', href: '#solution' },
-	{ label: 'Demo', href: '#results' },
-	{ label: 'How It Works', href: '#how-it-works' },
+	{ label: 'Why 5-Axis', href: '/#problem' },
+	{ label: 'Our Solution', href: '/#solution' },
+	{ label: 'Demo', href: '/#results' },
+	{ label: 'How It Works', href: '/#how-it-works' },
 ];
 
 const resourceLinks = [
-	{ label: 'Hardware', href: '#hardware' },
-	{ label: 'Software', href: '#software' },
-	{ label: 'Documentation', href: '#docs' },
-	{ label: 'GitHub', href: '#github' },
+	{ label: 'Hardware', href: '/hardware' },
+	{ label: 'Software', href: '/software' },
+	{
+		label: 'Slicer source',
+		href: 'https://github.com/Evanston09/pentos-slicer',
+		external: true,
+	},
+	{ label: 'GitHub', href: 'https://github.com/Evanston09/pentos', external: true },
 ];
 ---
 
@@ -67,6 +71,8 @@ const resourceLinks = [
 								<a
 									class="text-sm text-muted-foreground no-underline transition-colors hover:text-foreground hover:underline"
 									href={link.href}
+									target={link.external ? '_blank' : undefined}
+									rel={link.external ? 'noopener noreferrer' : undefined}
 								>
 									{link.label}
 								</a>

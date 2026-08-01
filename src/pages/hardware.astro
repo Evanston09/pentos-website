@@ -1,0 +1,345 @@
+---
+import { Image } from 'astro:assets';
+import pentosRender from '../assets/pentos_render.png';
+import arrowOverlay from '../assets/hardware/arrow_overlay.png';
+import spinAxis from '../assets/hardware/spin_axis.gif';
+import spinningRender from '../assets/hardware/spinning_render.webm';
+import tiltAxis from '../assets/hardware/tilt_axis.gif';
+import ElectronicsControlDiagram from '../components/ElectronicsControlDiagram.astro';
+import Button from '../components/ui/Button.astro';
+import CallToAction from '../components/ui/CallToAction.astro';
+import FeatureCard from '../components/ui/FeatureCard.astro';
+import PageIntro from '../components/ui/PageIntro.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Layout from '../layouts/Layout.astro';
+
+const assemblies = [
+	{
+		title: 'A Axis (Tilt Axis)',
+		description:
+			'The tilt assembly changes the angle of the build platform during multiplanar printing.',
+		image: tiltAxis,
+		alt: 'Animation showing the Pentos build platform tilting',
+	},
+	{
+		title: 'B Axis (Spin Axis)',
+		description:
+			'The spin assembly rotates the build platform to position the part for each toolpath.',
+		image: spinAxis,
+		alt: 'Animation showing the Pentos build platform spinning',
+	},
+];
+
+const bomRows = [
+	{
+		component: 'Gates PowerGrip 2GT Pulley - 20 Tooth - 5mm - 6mm',
+		href: 'https://kb-3d.com/store/motion/213-gates-powergrip-2gt-pulley-20-tooth-5mm-6mm-1634481851944.html',
+		quantity: '2',
+		unitPrice: '$3.99',
+		total: '$7.98',
+		status: "Don't Have",
+		notes: '',
+	},
+	{
+		component: '8mm REX Shaft with E-Clip - 32mm Length',
+		href: 'https://www.gobilda.com/8mm-rex-shaft-with-e-clip-stainless-steel-32mm-length/',
+		quantity: '2',
+		unitPrice: '$3.89',
+		total: '$7.78',
+		status: '',
+		notes: 'A longer shaft is available, but an exact 32mm shaft is still needed.',
+	},
+	{
+		component: '2910 Series Aluminum Clamping Collar - 8mm REX ID',
+		href: 'https://www.gobilda.com/2910-series-aluminum-clamping-collar-8mm-rex-id-x-20mm-od-9mm-length/',
+		quantity: '2',
+		unitPrice: '$4.99',
+		total: '$9.98',
+		status: 'Have',
+		notes: 'Sonic hubs may work for this use case.',
+	},
+	{
+		component: 'LDO Stepper Motor - Nema 17 - 42STH48-1684MAC',
+		href: 'https://kb-3d.com/store/stepper-motors-servos/64-ldo-stepper-motor-nema-17-42sth48-1684mac-1642876248477.html',
+		quantity: '2',
+		unitPrice: '$19.49',
+		total: '$38.98',
+		status: "Don't Have",
+		notes: '',
+	},
+	{
+		component: '16mm Silicone Spacers',
+		href: 'https://www.amazon.com/Printer-Silicone-Leveling-Heat-Resistant-Spacers/dp/B0D53VB522',
+		quantity: '1',
+		unitPrice: '$8.99',
+		total: '$8.99',
+		status: "Don't Have",
+		notes: '',
+	},
+	{
+		component: 'Prusa Research Heatbed Tile',
+		href: 'https://www.prusa3d.com/product/heatbed-tile/',
+		quantity: '1',
+		unitPrice: '$24.99',
+		total: '$24.99',
+		status: 'Have',
+		notes: '',
+	},
+	{
+		component: 'GT2 Pinion Timing Pulley - 8mm REX Bore - 20 Tooth',
+		href: 'https://www.gobilda.com/2mm-pitch-gt2-pinion-timing-pulley-8mm-rex-bore-20-tooth/',
+		quantity: '1',
+		unitPrice: '$7.99',
+		total: '$7.99',
+		status: '',
+		notes: '',
+	},
+	{
+		component: 'M3 Standoff - 15mm - 4 Pack',
+		href: 'https://www.revrobotics.com/M3-Standoffs/',
+		quantity: '1',
+		unitPrice: '$3.00',
+		total: '$3.00',
+		status: "Don't Have",
+		notes: '',
+	},
+	{
+		component: 'GT2 Pinion Timing Pulley - 8mm REX Bore - 40 Tooth',
+		href: 'https://www.gobilda.com/2mm-pitch-gt2-pinion-timing-pulley-8mm-rex-bore-40-tooth/',
+		quantity: '1',
+		unitPrice: '$8.99',
+		total: '$8.99',
+		status: '',
+		notes: '',
+	},
+	{
+		component: 'GT2 Timing Belt - 6mm Width - 184mm Length - 92 Tooth',
+		href: 'https://www.gobilda.com/2mm-pitch-gt2-timing-belt-6mm-width-184mm-pitch-length-92-tooth/',
+		quantity: '2',
+		unitPrice: '$3.19',
+		total: '$6.38',
+		status: '',
+		notes: '',
+	},
+	{
+		component: '1611 Series Flanged Ball Bearing - 8mm REX ID - 2 Pack',
+		href: 'https://www.gobilda.com/1611-series-flanged-ball-bearing-8mm-rex-id-x-14mm-od-5mm-thickness-2-pack/',
+		quantity: '2',
+		unitPrice: '$5.99',
+		total: '$11.98',
+		status: 'Have',
+		notes: '',
+	},
+	{
+		component: '8mm REX Shaft with E-Clip - 52mm Length',
+		href: 'https://www.gobilda.com/8mm-rex-shaft-with-e-clip-stainless-steel-52mm-length/',
+		quantity: '1',
+		unitPrice: '$4.39',
+		total: '$4.39',
+		status: 'Have',
+		notes: 'Longer than required, but should work.',
+	},
+	{
+		component: 'Any Klipper-Capable Mainboard',
+		href: '',
+		quantity: '1',
+		unitPrice: 'Varies',
+		total: 'Varies',
+		status: "Don't Have",
+		notes: '',
+	},
+	{
+		component: 'Any Klipper-Capable Computer',
+		href: '',
+		quantity: '1',
+		unitPrice: 'Varies',
+		total: 'Varies',
+		status: '',
+		notes: '',
+	},
+	{
+		component: 'Custom PEI Sheet',
+		href: '',
+		quantity: '1',
+		unitPrice: 'Varies',
+		total: 'Varies',
+		status: '',
+		notes: '',
+	},
+];
+---
+
+<Layout
+	title="Hardware — Pentos"
+	description="Explore the mechanical architecture, electronics, and bill of materials for the Pentos five-axis hardware retrofit."
+>
+	<main>
+		<PageIntro
+			id="hardware"
+			title="Hardware"
+			description="The mechanical and electronic systems that add tilt and rotation to a standard Ender 3."
+		/>
+
+		<section class="border-b border-border bg-background" aria-label="Pentos hardware render">
+			<div class="mx-auto max-w-7xl px-6 pt-0 pb-12 lg:px-8 lg:pb-8 xl:px-12">
+                <video
+                    class="block aspect-video w-full transform-gpu"
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    preload="metadata"
+                    aria-label="Animated render of the Pentos five-axis hardware"
+                >
+                    <source src={spinningRender} type="video/webm" />
+                    Your browser does not support embedded video.
+                </video>
+			</div>
+		</section>
+
+		<section class="border-b border-border bg-background" aria-labelledby="mechanical-title">
+			<div class="mx-auto max-w-5xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+				<SectionHeading
+					id="mechanical-title"
+					description="See how the printer's existing linear motion works with the two added build-platform axes."
+				>
+					Mechanical <span class="text-primary">Architecture</span>
+				</SectionHeading>
+
+				<div class="mt-10 grid gap-5 lg:grid-cols-3">
+					<article
+						class="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm lg:col-span-2 lg:row-span-2"
+					>
+						<div class="relative grid aspect-square flex-1 place-items-center overflow-hidden bg-muted">
+							<Image
+								class="h-full w-full object-contain"
+								src={pentosRender}
+								alt="Complete Pentos five-axis Ender 3 retrofit"
+								width={900}
+								height={695}
+							/>
+							<Image
+								class="pointer-events-none absolute inset-0 h-full w-full object-contain"
+								src={arrowOverlay}
+								alt=""
+								width={900}
+								height={695}
+								aria-hidden="true"
+							/>
+						</div>
+						<div class="p-6">
+							<h3 class="font-heading text-2xl font-semibold tracking-tight">
+								Complete 5-Axis Assembly
+							</h3>
+							<p class="mt-3 leading-7 text-muted-foreground">
+								Pentos combines the Ender 3's X, Y, and Z movement with dedicated tilt and spin
+								axes at the build platform.
+							</p>
+						</div>
+					</article>
+
+					{
+						assemblies.map((assembly) => (
+							<FeatureCard {...assembly} imageFit="contain" imageAspect="video" />
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="border-b border-border bg-muted/40" aria-labelledby="electronics-title">
+			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+				<SectionHeading
+					id="electronics-title"
+					description="Follow how a sliced toolpath becomes synchronized movement across the printer and both added platform axes."
+				>
+					Electronics and <span class="text-primary">Control</span>
+				</SectionHeading>
+
+				<div class="mt-10">
+					<ElectronicsControlDiagram />
+				</div>
+			</div>
+		</section>
+
+		<section class="border-b border-border bg-background" aria-labelledby="bom-title">
+			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+				<SectionHeading
+					id="bom-title"
+					description="Current working parts list. Configurable electronics and custom-part prices vary by component choice."
+				>
+					Bill of <span class="text-primary">Materials</span>
+				</SectionHeading>
+				<p class="mt-5 text-center font-heading text-lg font-semibold text-foreground">
+					Priced components:
+					<span class="ml-2 text-4xl font-bold tracking-tight text-primary underline">
+						$141.43
+					</span>
+				</p>
+
+				<div class="mt-10 overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
+					<table class="w-full border-collapse text-left text-sm">
+						<thead class="bg-muted">
+							<tr>
+								<th class="px-5 py-4 font-semibold text-foreground" scope="col">Component</th>
+								<th class="px-5 py-4 font-semibold text-foreground" scope="col">Quantity</th>
+								<th class="px-5 py-4 font-semibold text-foreground" scope="col">Unit Price</th>
+								<th class="px-5 py-4 font-semibold text-foreground" scope="col">Total</th>
+								<th class="px-5 py-4 font-semibold text-foreground" scope="col">Source</th>
+							</tr>
+						</thead>
+						<tbody>
+							{
+								bomRows.map((row) => (
+									<tr class="border-t border-border">
+										<th class="px-5 py-4 font-medium text-foreground" scope="row">
+											{row.component}
+										</th>
+										<td class="px-5 py-4 text-muted-foreground">{row.quantity}</td>
+										<td class="px-5 py-4 text-muted-foreground">{row.unitPrice}</td>
+										<td class="px-5 py-4 font-medium text-foreground">{row.total}</td>
+										<td class="px-5 py-4">
+											{row.href ? (
+												<a
+													class="font-medium text-secondary no-underline hover:underline"
+													href={row.href}
+													target="_blank"
+													rel="noreferrer"
+												>
+													View
+												</a>
+											) : (
+												<span class="text-muted-foreground">—</span>
+											)}
+										</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+
+		<section class="bg-background">
+			<div class="mx-auto max-w-7xl px-6 pt-12 lg:px-8 lg:pt-16 xl:px-12">
+				<CallToAction>
+					<h2 class="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+						Download the hardware files
+					</h2>
+					<p class="mt-3 text-lg leading-7 text-muted-foreground">
+						Get the CAD models, printable parts, and bill of materials for the Pentos retrofit.
+					</p>
+					<Fragment slot="actions">
+						<Button class="w-full sm:w-auto" variant="primary" size="lg" href="#">
+							Download CAD
+						</Button>
+						<Button class="w-full sm:w-auto" variant="outline" size="lg" href="#">
+							View All Files
+						</Button>
+					</Fragment>
+				</CallToAction>
+			</div>
+		</section>
+	</main>
+</Layout>

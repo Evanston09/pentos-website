@@ -9,8 +9,6 @@ import hardwareRetrofit from '../assets/solutions/5-Axis-Retrofit.jpg';
 import openSourcePreview from '../assets/solutions/open-source.png';
 import slicerPreview from '../assets/solutions/pentos-slicer-preview.jpg';
 import DemoSection from './DemoSection.astro';
-import Footer from './Footer.astro';
-import Header from './Header.astro';
 import HowItWorksSection from './HowItWorksSection.astro';
 import Button from './ui/Button.astro';
 import FeatureCard from './ui/FeatureCard.astro';
@@ -55,7 +53,7 @@ const solutions = [
 		image: slicerPreview,
 		alt: 'Pentos slicer preview showing a model divided across multiple print planes',
 		imageFit: 'contain' as const,
-		href: '#software',
+		href: '/software',
 	},
 	{
 		title: 'Open-Source and Accessible',
@@ -64,14 +62,12 @@ const solutions = [
 		image: openSourcePreview,
 		alt: 'CAD model of the open-source Pentos five-axis build platform',
 		imageFit: 'contain' as const,
-		href: '#github',
+		href: 'https://github.com/Evanston09/pentos',
 	},
 ];
 ---
 
 <div class="flex min-h-[95vh] flex-col">
-	<Header />
-
 	<main class="mx-auto flex max-w-7xl flex-1 px-6 lg:px-8 xl:px-12">
 		<section
 			class="grid flex-1 items-center gap-8 py-16 lg:grid-cols-2 xl:gap-12 xl:py-20"
@@ -97,14 +93,14 @@ const solutions = [
 					<Button class="w-full sm:w-auto" variant="secondary" size="lg" href="#project">
 						Explore the Project
 					</Button>
-					<Button class="w-full sm:w-auto" variant="outline" size="lg" href="#github">
+					<Button class="w-full sm:w-auto" variant="outline" size="lg" href="https://github.com/Evanston09/pentos">
 						<Icon name="hugeicons:github" />
 						View GitHub
 					</Button>
 				</div>
 			</div>
 
-			<div class="max-w-2xl lg:translate-x-12 lg:scale-125 xl:translate-x-16">
+			<div class="max-w-2xl lg:translate-x-12 lg:scale-175 xl:translate-x-16">
 				<Image
 					class="w-full"
 					src={pentosRender}
@@ -179,4 +175,3 @@ const solutions = [
 
 <DemoSection />
 <HowItWorksSection />
-<Footer />

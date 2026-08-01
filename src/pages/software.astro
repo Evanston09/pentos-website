@@ -1,0 +1,339 @@
+---
+import { Image } from 'astro:assets';
+import planesImage from '../assets/how_work/planes.png';
+import prepareImage from '../assets/how_work/prepare.png';
+import sliceImage from '../assets/how_work/slice.png';
+import klipperLogo from '../assets/software/klipper-logo.png';
+import prusaSlicerLogo from '../assets/software/prusa_slicer.webp';
+import slicerDemo from '../assets/software/slicer_demo.mp4';
+import trimeshLogo from '../assets/software/trimesh-logo.png';
+import viserLogo from '../assets/software/viser.svg';
+import slicerPreview from '../assets/solutions/pentos-slicer-preview.jpg';
+import Button from '../components/ui/Button.astro';
+import CallToAction from '../components/ui/CallToAction.astro';
+import FeatureCard from '../components/ui/FeatureCard.astro';
+import PageIntro from '../components/ui/PageIntro.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Layout from '../layouts/Layout.astro';
+
+const sourceUrl = 'https://github.com/Evanston09/pentos-slicer';
+
+const technologies = [
+	{
+		name: 'Viser',
+		description: 'Interactive 3D tools in the browser.',
+		logo: viserLogo,
+		alt: 'Viser logo',
+	},
+	{
+		name: 'trimesh',
+		description: 'Model loading and geometry processing.',
+		logo: trimeshLogo,
+		alt: 'trimesh logo',
+	},
+	{
+		name: 'PrusaSlicer',
+		description: 'Toolpaths for each oriented region.',
+		logo: prusaSlicerLogo,
+		alt: 'PrusaSlicer logo',
+	},
+	{
+		name: 'Klipper',
+		description: 'Standard firmware and machine control.',
+		logo: klipperLogo,
+		alt: 'Klipper logo',
+	},
+];
+
+const capabilities = [
+	{
+		eyebrow: 'Model preparation',
+		title: 'Work directly in 3D',
+		description:
+			'Load STL, 3MF, OBJ, or PLY models, position them on the build plate, and inspect overhangs in an interactive viewport.',
+	},
+	{
+		eyebrow: 'Core feature',
+		title: 'Automatic Plane Selection',
+		description:
+			'A geometric scoring formula identifies useful print planes automatically. Move and rotate each suggestion before slicing.',
+	},
+	{
+		eyebrow: 'Toolpath generation',
+		title: 'Build on a proven slicer',
+		description:
+			'Pentos prepares each region for PrusaSlicer, then combines the toolpaths with the required A/B transitions.',
+	},
+	{
+		eyebrow: 'Verification',
+		title: 'Preview before printing',
+		description:
+			'Review the oriented regions and completed G-code path together before sending the file to the printer.',
+	},
+];
+
+const workflow = [
+	{
+		step: '01',
+		title: 'Import and position',
+		description:
+			'Upload a model, place it inside the Pentos build volume, and inspect its overhangs as you work.',
+		image: prepareImage,
+		alt: 'A model positioned in the Pentos Slicer build volume',
+	},
+	{
+		step: '02',
+		title: 'Generate and refine planes',
+		description:
+			'Use the mathematical plane selector as a starting point, then adjust the results to divide the model into printable regions.',
+		image: planesImage,
+		alt: 'Two editable print planes dividing a model in Pentos Slicer',
+	},
+	{
+		step: '03',
+		title: 'Slice and inspect',
+		description:
+			'Generate one coordinated five-axis G-code file, preview its path, and download it for the printer.',
+		image: sliceImage,
+		alt: 'A three-region multiplanar toolpath preview in Pentos Slicer',
+	},
+];
+---
+
+<Layout
+	title="Software — Pentos"
+	description="Explore Pentos Slicer and the standard Klipper firmware workflow behind accessible five-axis 3D printing."
+>
+	<main>
+		<PageIntro
+			id="software"
+			title="Software"
+			description="The slicer and firmware workflow that turns a 3D model into coordinated five-axis motion."
+		/>
+
+		<section class="border-b border-border bg-background" aria-label="Pentos Slicer demonstration">
+			<div class="mx-auto max-w-7xl px-6 pt-0 pb-12 lg:px-8 lg:pb-8 xl:px-12">
+				<div class="overflow-hidden rounded-2xl">
+					<video
+						class="block aspect-video w-full transform-gpu"
+						autoplay
+						loop
+						muted
+						playsinline
+						preload="metadata"
+						aria-label="Demonstration of the Pentos Slicer workflow"
+					>
+						<source src={slicerDemo} type="video/mp4" />
+						Your browser does not support embedded video.
+					</video>
+				</div>
+			</div>
+		</section>
+
+		<section class="border-b border-border bg-muted/40" aria-labelledby="overview-title">
+			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+				<SectionHeading
+					id="overview-title"
+					description="Divide a model into printable regions, choose how each one is built, and preview the complete multiplanar toolpath."
+				>
+					Pentos <span class="text-primary">Slicer</span>
+				</SectionHeading>
+
+				<div class="mt-10 grid gap-8 lg:grid-cols-5 lg:items-center">
+					<div class="overflow-hidden rounded-2xl border border-border bg-card p-2 shadow-sm lg:col-span-3">
+						<Image
+							class="aspect-video w-full rounded-xl object-cover"
+							src={slicerPreview}
+							alt="Pentos Slicer previewing a model with multiple print orientations"
+							loading="eager"
+						/>
+					</div>
+
+					<div class="space-y-5 text-lg leading-8 text-muted-foreground lg:col-span-2">
+						<p>
+							Conventional slicers keep every layer parallel to the build plate. Pentos lets
+							each region print from a more useful direction instead.
+						</p>
+						<p>
+							It orients and slices those regions with PrusaSlicer, then adds the platform's tilt
+							and rotation moves.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="border-b border-border bg-background" aria-labelledby="capabilities-title">
+			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+				<div class="max-w-2xl">
+					<h2
+						id="capabilities-title"
+						class="font-heading text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
+					>
+						One workspace for the<br />
+						<span class="text-primary">whole slicing process.</span>
+					</h2>
+					<p class="mt-5 leading-7 text-muted-foreground">
+						Prepare, orient, slice, and review the complete print without moving between
+						separate tools.
+					</p>
+				</div>
+
+				<div class="mt-12 grid gap-5 sm:grid-cols-2">
+					{
+						capabilities.map((capability) => (
+							<article class="rounded-2xl border border-border bg-card p-6 shadow-sm lg:p-8">
+								<p class="text-sm font-semibold text-primary">{capability.eyebrow}</p>
+								<h3 class="mt-3 font-heading text-2xl font-semibold tracking-tight">
+									{capability.title}
+								</h3>
+								<p class="mt-3 leading-7 text-muted-foreground">
+									{capability.description}
+								</p>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section id="workflow" class="border-b border-border bg-muted/40" aria-labelledby="workflow-title">
+			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+				<SectionHeading
+					id="workflow-title"
+					description="Choose the important orientations and let Pentos produce the machine-ready output."
+				>
+					A clear path from <span class="text-secondary">part to print.</span>
+				</SectionHeading>
+
+				<ol class="mt-12 grid gap-5 lg:grid-cols-3">
+					{
+						workflow.map((item) => (
+							<li>
+								<FeatureCard
+									title={item.title}
+									description={item.description}
+									image={item.image}
+									alt={item.alt}
+									eyebrow={`STEP ${item.step}`}
+									imageAspect="video"
+								/>
+							</li>
+						))
+					}
+				</ol>
+			</div>
+		</section>
+
+		<section class="border-b border-border bg-background" aria-labelledby="open-source-title">
+			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+				<SectionHeading id="open-source-title">
+					Powered by <span class="text-secondary">open source.</span>
+				</SectionHeading>
+
+				<div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+					{
+						technologies.map((technology) => (
+							<article class="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+								<div class="grid h-44 place-items-center bg-card p-8">
+									<Image
+										class="max-h-28 w-full object-contain"
+										src={technology.logo}
+										alt={technology.alt}
+									/>
+								</div>
+								<div class="flex-1 p-5">
+									<h3 class="font-heading text-lg font-semibold tracking-tight">
+										{technology.name}
+									</h3>
+									<p class="mt-2 text-sm leading-6 text-muted-foreground">
+										{technology.description}
+									</p>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="border-b border-border bg-muted/40" aria-labelledby="klipper-title">
+			<div
+				class="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-2 lg:items-start lg:px-8 lg:py-28 xl:px-12"
+			>
+				<div class="max-w-xl lg:sticky lg:top-10 lg:self-start">
+					<p class="font-heading text-sm font-semibold tracking-widest text-primary uppercase">
+						Printer firmware
+					</p>
+					<h2
+						id="klipper-title"
+						class="mt-4 font-heading text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
+					>
+						Standard Klipper.<br />
+						<span class="text-secondary">No proprietary fork.</span>
+					</h2>
+					<p class="mt-6 text-lg leading-8 text-muted-foreground">
+						Pentos uses unmodified Klipper. Its standard manual-stepper support and a small
+						set of macros control the added tilt and rotation axes.
+					</p>
+				</div>
+
+				<div class="grid gap-5 sm:grid-cols-2">
+					<article class="rounded-2xl border border-border bg-card p-6 shadow-sm">
+						<h3 class="font-heading text-xl font-semibold tracking-tight">Familiar foundation</h3>
+						<p class="mt-3 leading-7 text-muted-foreground">
+							Keep Klipper's familiar configuration, tooling, and community documentation.
+							There is no separate Pentos firmware fork to maintain.
+						</p>
+					</article>
+					<article class="rounded-2xl border border-border bg-card p-6 shadow-sm">
+						<h3 class="font-heading text-xl font-semibold tracking-tight">Purpose-built macros</h3>
+						<p class="mt-3 leading-7 text-muted-foreground">
+							A focused set of macros homes the A and B axes and enables five-axis G-code
+							commands.
+						</p>
+					</article>
+					<article class="rounded-2xl border border-border bg-card p-6 shadow-sm sm:col-span-2">
+						<h3 class="font-heading text-xl font-semibold tracking-tight">The slicer does the coordination</h3>
+						<p class="mt-3 leading-7 text-muted-foreground">
+							Pentos Slicer calculates and writes the A/B transitions. Klipper executes the
+							resulting toolpath using standard machine configuration.
+						</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="get-started" class="bg-background" aria-labelledby="get-started-title">
+			<div class="mx-auto max-w-7xl px-6 pt-12 lg:px-8 lg:pt-16 xl:px-12">
+				<CallToAction>
+					<h2
+						id="get-started-title"
+						class="font-heading text-3xl font-semibold tracking-tight sm:text-4xl"
+					>
+						Start slicing in your browser
+					</h2>
+					<p class="mt-3 text-lg leading-7 text-muted-foreground">
+						Open Pentos Slicer in your browser and turn a model into a coordinated five-axis
+						toolpath.
+					</p>
+					<Fragment slot="actions">
+						<Button class="w-full sm:w-auto" variant="primary" size="lg" href="/slicer">
+							Open Slicer
+						</Button>
+						<Button
+							class="w-full sm:w-auto"
+							variant="outline"
+							size="lg"
+							href={sourceUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							View Source
+						</Button>
+					</Fragment>
+				</CallToAction>
+			</div>
+		</section>
+	</main>
+</Layout>

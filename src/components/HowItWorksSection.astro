@@ -1,9 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 import planesImage from '../assets/how_work/planes.png';
 import prepareImage from '../assets/how_work/prepare.png';
 import sliceImage from '../assets/how_work/slice.png';
 import Button from './ui/Button.astro';
+import CallToAction from './ui/CallToAction.astro';
+import FeatureCard from './ui/FeatureCard.astro';
 
 const steps = [
 	{
@@ -46,34 +47,15 @@ const steps = [
 		<ol class="mt-10 grid gap-5 sm:grid-cols-3">
 			{
 				steps.map((step) => (
-					<li class="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-						<div class="aspect-video overflow-hidden bg-muted">
-							<Image
-								class="h-full w-full object-cover"
-								src={step.image}
-								alt={step.alt}
-								width={700}
-								height={400}
-							/>
-						</div>
-
-						<div class="flex flex-1 flex-col p-5 xl:p-6">
-							<h3 class="font-heading text-lg font-semibold tracking-tight">
-								{step.title}
-							</h3>
-							<p class="mt-2 text-sm leading-6 text-muted-foreground">
-								{step.description}
-							</p>
-						</div>
+					<li class="h-full">
+						<FeatureCard {...step} imageAspect="video" />
 					</li>
 				))
 			}
 		</ol>
 
-		<div
-			class="mt-10 flex flex-col gap-6 rounded-t-2xl bg-muted/40 px-6 py-8 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10"
-		>
-			<div class="max-w-2xl">
+		<div class="mt-10">
+			<CallToAction>
 				<h3 class="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
 					Ready to put five axes to work?
 				</h3>
@@ -81,16 +63,15 @@ const steps = [
 					Explore the Pentos slicer, hardware, and documentation to start building your own
 					multiplanar workflow.
 				</p>
-			</div>
-
-			<div class="flex flex-col gap-3 sm:flex-row lg:shrink-0">
-				<Button class="w-full sm:w-auto" variant="primary" size="lg" href="#project">
-					Open Slicer
-				</Button>
-				<Button class="w-full sm:w-auto" variant="outline" size="lg" href="#docs">
-					Read the Docs
-				</Button>
-			</div>
+				<Fragment slot="actions">
+					<Button class="w-full sm:w-auto" variant="primary" size="lg" href="/slicer">
+						Open Slicer
+					</Button>
+					<Button class="w-full sm:w-auto" variant="outline" size="lg" href="/software">
+						Explore Software
+					</Button>
+				</Fragment>
+			</CallToAction>
 		</div>
 	</div>
 </section>

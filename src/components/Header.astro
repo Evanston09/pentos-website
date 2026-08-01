@@ -4,13 +4,13 @@ import logo from '../assets/logo.png';
 import Button from './ui/Button.astro';
 
 const navItems = [
-	'Home',
-	'Project',
-	'Hardware',
-	'Software',
-	'Docs',
-	'GitHub',
+	{ label: 'Home', href: '/' },
+	{ label: 'Hardware', href: '/hardware' },
+	{ label: 'Software', href: '/software' },
+	{ label: 'GitHub', href: 'https://github.com/Evanston09/pentos' },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="h-20 border-b border-border bg-background">
@@ -27,27 +27,31 @@ const navItems = [
 		<nav class="hidden flex-1 lg:block" aria-label="Primary navigation">
 			<ul class="flex items-center justify-center gap-4 xl:gap-6">
 				{
-					navItems.map((item) => (
+					navItems.map((item) => {
+						const isActive = item.href.startsWith('/') && item.href === currentPath;
+
+						return (
 						<li>
 							<a
 								class:list={[
 									'relative inline-flex h-20 items-center text-sm font-medium no-underline transition-colors hover:text-foreground',
-									item === 'Home'
+									isActive
 										? 'text-foreground after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-secondary'
 										: 'text-muted-foreground',
 								]}
-								href={item === 'Home' ? '/' : `#${item.toLowerCase()}`}
+								href={item.href}
 							>
-								{item}
+								{item.label}
 							</a>
 						</li>
-					))
+						);
+					})
 				}
 			</ul>
 		</nav>
 
 		<div class="ml-auto flex w-40 justify-end xl:w-48">
-			<Button variant="primary" href="#project">
+			<Button variant="primary" href="/slicer">
 				Open Slicer
 			</Button>
 		</div>
