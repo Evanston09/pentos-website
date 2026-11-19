@@ -2,14 +2,19 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
 
-const projectLinks = [
-	{ label: 'Why 5-Axis', href: '/#problem' },
-	{ label: 'Our Solution', href: '/#solution' },
+interface Link {
+	label: string;
+	href: string;
+	external?: boolean;
+}
+
+const projectLinks: Link[] = [
+	{ label: 'Research', href: '/research' },
 	{ label: 'Demo', href: '/#results' },
 	{ label: 'How It Works', href: '/#how-it-works' },
 ];
 
-const resourceLinks = [
+const resourceLinks: Link[] = [
 	{ label: 'Hardware', href: '/hardware' },
 	{ label: 'Software', href: '/software' },
 	{
@@ -22,7 +27,7 @@ const resourceLinks = [
 ---
 
 <footer class="border-t border-border bg-background text-foreground">
-	<div class="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16 xl:px-12">
+	<div class="mx-auto max-w-7xl px-6 py-12 lg:py-16">
 		<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
 			<div class="max-w-sm sm:col-span-2">
 				<a class="inline-flex items-center" href="/" aria-label="Pentos home">
@@ -34,60 +39,34 @@ const resourceLinks = [
 				</p>
 			</div>
 
-			<nav aria-labelledby="footer-project-title">
-				<h2
-					id="footer-project-title"
-					class="font-heading text-sm font-semibold tracking-wide text-foreground"
-				>
-					Project
-				</h2>
-				<ul class="mt-4 space-y-3">
-					{
-						projectLinks.map((link) => (
+			{[
+				{ title: 'Project', links: projectLinks },
+				{ title: 'Resources', links: resourceLinks },
+			].map(({ title, links }) => (
+				<nav aria-labelledby={`footer-${title.toLowerCase()}-title`}>
+					<h2 id={`footer-${title.toLowerCase()}-title`} class="font-heading text-sm font-semibold tracking-wide text-foreground">
+						{title}
+					</h2>
+					<ul class="mt-4 space-y-3">
+						{links.map(({ label, href, external }) => (
 							<li>
 								<a
 									class="text-sm text-muted-foreground no-underline transition-colors hover:text-foreground hover:underline"
-									href={link.href}
-								>
-									{link.label}
-								</a>
+									href={href}
+									target={external ? '_blank' : undefined}
+									rel={external ? 'noopener noreferrer' : undefined}
+								>{label}</a>
 							</li>
-						))
-					}
-				</ul>
-			</nav>
-
-			<nav aria-labelledby="footer-resources-title">
-				<h2
-					id="footer-resources-title"
-					class="font-heading text-sm font-semibold tracking-wide text-foreground"
-				>
-					Resources
-				</h2>
-				<ul class="mt-4 space-y-3">
-					{
-						resourceLinks.map((link) => (
-							<li>
-								<a
-									class="text-sm text-muted-foreground no-underline transition-colors hover:text-foreground hover:underline"
-									href={link.href}
-									target={link.external ? '_blank' : undefined}
-									rel={link.external ? 'noopener noreferrer' : undefined}
-								>
-									{link.label}
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</nav>
+						))}
+					</ul>
+				</nav>
+			))}
 		</div>
 
 		<div
-			class="mt-12 flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between"
+			class="mt-12 border-t border-border pt-6 text-sm text-muted-foreground"
 		>
 			<p>&copy; {new Date().getFullYear()} Pentos. All rights reserved.</p>
-			<p>Open-source five-axis 3D printing.</p>
 		</div>
 	</div>
 </footer>

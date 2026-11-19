@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import elbowPlanar from '../assets/research/elbow-planar.jpg';
+import elbowIndexed from '../assets/research/elbow-indexed.jpg';
+import concavePlanar from '../assets/research/concave-planar.webp';
+import concaveNonplanar from '../assets/research/concave-nonplanar.webp';
+import convexPlanar from '../assets/research/convex-planar.webp';
+import convexNonplanar from '../assets/research/convex-nonplanar.webp';
+import DataTable from '../components/ui/DataTable.astro';
+import Layout from '../layouts/Layout.astro';
+
+const samplePairs = [
+	{ title: '90° elbow', images: [
+		{ label: 'Planar', image: elbowPlanar, alt: 'Planar elbow with uneven extrusion near the bend' },
+		{ label: 'Indexed', image: elbowIndexed, alt: 'Indexed elbow with a visible junction between sections' },
+	]},
+	{ title: 'Concave-top block under the microscope', images: [
+		{ label: 'Planar', image: concavePlanar, alt: 'Concave surface with repeated terrace bands' },
+		{ label: 'Nonplanar', image: concaveNonplanar, alt: 'Concave surface with diagonal extrusion tracks' },
+	]},
+	{ title: 'Convex-top block under the microscope', images: [
+		{ label: 'Planar', image: convexPlanar, alt: 'Convex surface with stair-stepped terraces' },
+		{ label: 'Nonplanar', image: convexNonplanar, alt: 'Convex surface with diagonal extrusion tracks' },
+	]},
+];
+---
+
+<Layout title="Research — Pentos" description="Print comparisons, dimensional measurements, and slicing benchmarks from the 2026 Pentos research paper.">
+	<main class="mx-auto max-w-7xl px-6">
+		<header class="max-w-3xl py-16">
+			<h1 class="font-heading text-4xl font-semibold tracking-tight sm:text-6xl">A New Angle on <span class="text-primary">3D Printing</span></h1>
+			<p class="mt-5 text-lg leading-8 text-muted-foreground">The Pentos study compared planar printing with indexed and simultaneous five-axis printing on the same modified Ender 3 V2. An indexed 90° elbow printed without supports, and nonplanar layers reduced visible terrace boundaries on two curved-top blocks.</p>
+		</header>
+
+		<section class="space-y-5 border-t py-12" aria-labelledby="samples-title">
+			<h2 id="samples-title" class="font-heading text-3xl font-semibold tracking-tight">Printed samples</h2>
+			<div class="grid gap-5 lg:grid-cols-3">
+				{samplePairs.map(({ title, images }) => (
+					<figure class="overflow-hidden rounded-xl border bg-card">
+						<div class="grid grid-cols-2 divide-x">
+							{images.map(({ label, image, alt }) => (
+								<div>
+									<Image src={image} alt={alt} width={420} class="aspect-square w-full object-contain" />
+									<p class="px-3 py-2 text-sm text-muted-foreground">{label}</p>
+								</div>
+							))}
+						</div>
+						<figcaption class="border-t p-4 font-medium">{title}</figcaption>
+					</figure>
+				))}
+			</div>
+			<p class="max-w-3xl leading-7 text-muted-foreground">The indexed elbow had more regular underside extrusion and a visible gap where the two sections met. The nonplanar block surfaces showed diagonal extrusion tracks with a few spots of apparent underextrusion. Microscope scale bars represent 1 mm. Photos by Evan Kim.</p>
+		</section>
+
+		<section class="space-y-5 border-t py-12" aria-labelledby="print-results-title">
+			<h2 id="print-results-title" class="font-heading text-3xl font-semibold tracking-tight">Print time, mass, and dimensions</h2>
+			<p class="max-w-3xl leading-7 text-muted-foreground">The indexed elbow used 29.0% less material including supports and finished 19.5% sooner. Its mean inner and outer diameters were closer to CAD. Nonplanar blocks took within one minute of their planar counterparts and weighed slightly more.</p>
+			<p class="max-w-3xl leading-7 text-muted-foreground">The study used three PLA samples per condition with a 0.4 mm nozzle, 0.2 mm nominal layers, three perimeters, and 15% grid infill. Job time includes heating, homing, and printing. Values are mean ± sample standard deviation.</p>
+			<DataTable caption="Total job time and material mass" columns={['Geometry and mode', 'Time (min)', 'Part (g)', 'Support (g)']} rows={[
+				['Concave · planar', '31.997 ± 0.408', '3.787 ± 0.021', '—'],
+				['Concave · nonplanar', '31.622 ± 0.034', '3.827 ± 0.049', '—'],
+				['Convex · planar', '31.312 ± 0.006', '3.893 ± 0.015', '—'],
+				['Convex · nonplanar', '32.078 ± 0.553', '3.990 ± 0.017', '—'],
+				['Elbow · planar', '49.780 ± 0.311', '2.540 ± 0.000', '1.150 ± 0.010'],
+				['Elbow · indexed', '40.097 ± 0.171', '2.620 ± 0.010', 'None used'],
+			]} />
+			<div class="grid gap-5 lg:grid-cols-2">
+				<DataTable caption="Block error relative to CAD (mm)" columns={['Geometry and mode', 'Width', 'Length']} rows={[
+					['Concave · planar', '−0.06 ± 0.10', '+0.08 ± 0.15'],
+					['Concave · nonplanar', '+0.38 ± 0.16', '+0.16 ± 0.06'],
+					['Convex · planar', '−0.11 ± 0.04', '−0.21 ± 0.09'],
+					['Convex · nonplanar', '+0.12 ± 0.01', '−0.21 ± 0.02'],
+				]} />
+				<DataTable caption="Elbow diameter error relative to CAD (mm)" columns={['Mode', 'Outer (12 mm target)', 'Inner (8 mm target)']} rows={[
+					['Planar', '−0.23 ± 0.02', '−0.53 ± 0.04'],
+					['Indexed', '+0.10 ± 0.04', '−0.16 ± 0.02'],
+				]} />
+			</div>
+		</section>
+
+		<section class="space-y-5 border-t py-12" aria-labelledby="benchmark-title">
+			<h2 id="benchmark-title" class="font-heading text-3xl font-semibold tracking-tight">Slicer benchmarks</h2>
+			<p class="max-w-3xl leading-7 text-muted-foreground">Each project ran five times on an AMD Ryzen AI 9 365 host with Python 3.13.14 and PrusaSlicer 2.9.6. Timing covers project loading through G-code output. Peak memory covers the Python process. Mapping toolpaths back into the original geometry accounted for 93–99% of nonplanar processing time.</p>
+			<DataTable caption="Processing time and peak Python memory (mean ± sample SD)" columns={['Project', 'Time (s)', 'Peak RSS (MiB)']} rows={[
+				['Elbow · indexed', '1.147 ± 0.031', '171.7 ± 0.3'],
+				['Concave · nonplanar', '55.345 ± 0.609', '217.2 ± 0.4'],
+				['Convex · nonplanar', '69.764 ± 1.167', '222.7 ± 0.2'],
+			]} />
+		</section>
+
+		<section class="space-y-5 border-t py-12" aria-labelledby="limits-title">
+			<h2 id="limits-title" class="font-heading text-3xl font-semibold tracking-tight">Scope and future work</h2>
+			<p class="max-w-3xl leading-7 text-muted-foreground">The experiments covered one printer, one material, and three geometries. Surface comparisons were visual, and mechanical strength remains unmeasured. Further work includes measuring surface roughness and strength, improving pivot calibration and extrusion compensation, checking collision clearance, and speeding up inverse mapping.</p>
+		</section>
+	</main>
+</Layout>

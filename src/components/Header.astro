@@ -7,15 +7,15 @@ const navItems = [
 	{ label: 'Home', href: '/' },
 	{ label: 'Hardware', href: '/hardware' },
 	{ label: 'Software', href: '/software' },
-	{ label: 'GitHub', href: 'https://github.com/Evanston09/pentos' },
+	{ label: 'Research', href: '/research' },
 ];
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
-<header class="h-20 border-b border-border bg-background">
-	<div class="mx-auto flex h-full max-w-7xl items-center px-6 lg:px-8 xl:px-12">
-		<a class="flex w-40 items-center xl:w-48" href="/" aria-label="Pentos home">
+<header class="border-b border-border bg-background">
+	<div class="mx-auto flex max-w-7xl flex-wrap items-center px-6">
+		<a class="flex h-16 items-center lg:h-20 lg:w-40" href="/" aria-label="Pentos home">
 			<Image
 				class="h-8 w-auto"
 				src={logo}
@@ -24,22 +24,23 @@ const currentPath = Astro.url.pathname;
 			/>
 		</a>
 
-		<nav class="hidden flex-1 lg:block" aria-label="Primary navigation">
-			<ul class="flex items-center justify-center gap-4 xl:gap-6">
+		<nav class="order-last w-full lg:order-none lg:w-auto lg:flex-1" aria-label="Primary navigation">
+			<ul class="flex flex-wrap items-center gap-x-4 lg:justify-center">
 				{
 					navItems.map((item) => {
-						const isActive = item.href.startsWith('/') && item.href === currentPath;
+						const isActive = item.href === currentPath;
 
 						return (
 						<li>
 							<a
 								class:list={[
-									'relative inline-flex h-20 items-center text-sm font-medium no-underline transition-colors hover:text-foreground',
+									'inline-flex h-10 items-center lg:h-20 text-sm font-medium no-underline transition-colors',
 									isActive
-										? 'text-foreground after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-secondary'
-										: 'text-muted-foreground',
+										? 'text-primary'
+										: 'text-muted-foreground hover:text-foreground',
 								]}
 								href={item.href}
+								aria-current={isActive ? "page" : undefined}
 							>
 								{item.label}
 							</a>
@@ -50,9 +51,9 @@ const currentPath = Astro.url.pathname;
 			</ul>
 		</nav>
 
-		<div class="ml-auto flex w-40 justify-end xl:w-48">
-			<Button variant="primary" href="/slicer">
-				Open Slicer
+		<div class="ml-auto flex justify-end lg:w-40">
+			<Button variant="primary" href="https://github.com/Evanston09/pentos-slicer">
+				Get the Slicer
 			</Button>
 		</div>
 	</div>

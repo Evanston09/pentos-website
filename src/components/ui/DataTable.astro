@@ -1,0 +1,28 @@
+---
+interface Props {
+	caption: string;
+	columns: string[];
+	rows: string[][];
+}
+
+const { caption, columns, rows } = Astro.props;
+---
+
+<div class="overflow-x-auto rounded-xl border border-border bg-card">
+	<table class="w-full border-collapse text-left text-sm tabular-nums">
+		<caption class="bg-card px-4 py-4 text-left text-base font-semibold">{caption}</caption>
+		<thead class="bg-muted">
+			<tr>
+				{columns.map((column) => <th class="px-4 py-3" scope="col">{column}</th>)}
+			</tr>
+		</thead>
+		<tbody>
+			{rows.map(([label, ...values]) => (
+				<tr class="border-t border-border">
+					<th class="px-4 py-3 font-medium" scope="row">{label}</th>
+					{values.map((value) => <td class="px-4 py-3 text-muted-foreground">{value}</td>)}
+				</tr>
+			))}
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,47 @@
+---
+import toolpaths from '../assets/research/paper-elbow-90-toolpaths.png';
+import curvedPaths from '../assets/research/sequence-paths.png';
+import FeatureCard from './ui/FeatureCard.astro';
+
+const results = [
+	{ value: '$482.77', label: 'Estimated hardware cost, including the base printer' },
+	{ value: '19.5%', label: 'Shorter total job time for the indexed elbow' },
+	{ value: '29.0%', label: 'Less part and support material for the indexed elbow' },
+];
+
+const modes = [
+	{
+		title: 'Indexed printing (3+2)',
+		description: 'Divide the model with cutting planes. The platform reorients between sections and holds still while each section prints in flat layers.',
+		image: toolpaths,
+		alt: '90° elbow toolpaths colored by section',
+		href: '/software#multiplanar-pipeline',
+	},
+	{
+		title: 'Simultaneous five-axis printing',
+		description: 'Shape layers with curved guides. The platform tilts and rotates during extrusion to follow the local layer direction.',
+		image: curvedPaths,
+		alt: 'Nonplanar toolpaths following the curved top of a concave block',
+		href: '/software#nonplanar-pipeline',
+	},
+];
+---
+
+<section class="border-y border-border bg-muted/40" aria-label="Research highlights">
+	<dl class="mx-auto grid max-w-7xl gap-8 px-6 py-10 sm:grid-cols-3">
+		{results.map(({ value, label }) => (
+			<div class="flex flex-col-reverse gap-2">
+				<dt class="max-w-xs text-muted-foreground">{label}</dt>
+				<dd class="font-heading text-4xl font-semibold tracking-tight text-primary">{value}</dd>
+			</div>
+		))}
+	</dl>
+</section>
+
+<section id="how-it-works" class="mx-auto max-w-7xl px-6 py-14 lg:py-20" aria-labelledby="modes-title">
+	<h2 id="modes-title" class="font-heading text-4xl font-semibold tracking-tight">Two ways to use five axes</h2>
+	<p class="mt-4 max-w-2xl leading-7 text-muted-foreground">Start with an imported mesh. Pentos prepares the geometry for PrusaSlicer, then turns the resulting toolpaths into XYZAB G-code for the calibrated machine.</p>
+	<div class="mt-8 grid gap-5 sm:grid-cols-2">
+		{modes.map((mode) => <FeatureCard {...mode} />)}
+	</div>
+</section>

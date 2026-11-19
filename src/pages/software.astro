@@ -1,19 +1,24 @@
 ---
 import { Image } from 'astro:assets';
-import planesImage from '../assets/how_work/planes.png';
-import prepareImage from '../assets/how_work/prepare.png';
-import sliceImage from '../assets/how_work/slice.png';
+import slicerDemo from '../assets/software/slicer_demo.mp4';
+import multiplanarSetup from '../assets/how_work/planes.png';
+import elbowSections from '../assets/research/paper-elbow-90-sections.png';
+import elbowToolpaths from '../assets/research/paper-elbow-90-toolpaths.png';
+import nonplanarSetup from '../assets/research/interface-nonplanar-setup.png';
+import printerSimulation from '../assets/research/printer-nonplanar-simulation.png';
+import guideImage from '../assets/research/sequence-guides.png';
+import fieldImage from '../assets/research/sequence-field.png';
+import flattenedImage from '../assets/research/sequence-flattened.png';
+import restoredImage from '../assets/research/sequence-paths.png';
 import klipperLogo from '../assets/software/klipper-logo.png';
 import prusaSlicerLogo from '../assets/software/prusa_slicer.webp';
-import slicerDemo from '../assets/software/slicer_demo.mp4';
 import trimeshLogo from '../assets/software/trimesh-logo.png';
 import viserLogo from '../assets/software/viser.svg';
-import slicerPreview from '../assets/solutions/pentos-slicer-preview.jpg';
 import Button from '../components/ui/Button.astro';
 import CallToAction from '../components/ui/CallToAction.astro';
-import FeatureCard from '../components/ui/FeatureCard.astro';
 import PageIntro from '../components/ui/PageIntro.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
+import WorkflowStep from '../components/ui/WorkflowStep.astro';
 import Layout from '../layouts/Layout.astro';
 
 const sourceUrl = 'https://github.com/Evanston09/pentos-slicer';
@@ -33,7 +38,7 @@ const technologies = [
 	},
 	{
 		name: 'PrusaSlicer',
-		description: 'Toolpaths for each oriented region.',
+		description: 'Toolpath generation for both slicing modes.',
 		logo: prusaSlicerLogo,
 		alt: 'PrusaSlicer logo',
 	},
@@ -47,186 +52,197 @@ const technologies = [
 
 const capabilities = [
 	{
-		eyebrow: 'Model preparation',
-		title: 'Work directly in 3D',
+		title: 'Save and reopen projects',
 		description:
-			'Load STL, 3MF, OBJ, or PLY models, position them on the build plate, and inspect overhangs in an interactive viewport.',
+			'Keep your model, planes, curved guides, slicing mode, and print settings together in a .pentos project. Reopen it when you are ready to refine the next version.',
 	},
 	{
-		eyebrow: 'Core feature',
-		title: 'Automatic Plane Selection',
+		title: 'Tune material and print settings',
 		description:
-			'A geometric scoring formula identifies useful print planes automatically. Move and rotate each suggestion before slicing.',
+			'Start with PLA or PETG presets, then adjust temperatures, layer heights, perimeters, and infill for your print.',
 	},
 	{
-		eyebrow: 'Toolpath generation',
-		title: 'Build on a proven slicer',
+		title: 'Bring your machine profile',
 		description:
-			'Pentos prepares each region for PrusaSlicer, then combines the toolpaths with the required A/B transitions.',
-	},
-	{
-		eyebrow: 'Verification',
-		title: 'Preview before printing',
-		description:
-			'Review the oriented regions and completed G-code path together before sending the file to the printer.',
+			'Import and export machine profiles with build dimensions, plate position, and rotation-pivot calibration. Your active profile is remembered in the browser.',
 	},
 ];
 
 const workflow = [
 	{
-		step: '01',
+
 		title: 'Import and position',
 		description:
-			'Upload a model, place it inside the Pentos build volume, and inspect its overhangs as you work.',
-		image: prepareImage,
-		alt: 'A model positioned in the Pentos Slicer build volume',
+			'Load an STL, 3MF, OBJ, or PLY model. Position it in the build volume and inspect its overhangs in 3D.',
 	},
 	{
-		step: '02',
-		title: 'Generate and refine planes',
+
+		title: 'Choose planes or curved guides',
 		description:
-			'Use the mathematical plane selector as a starting point, then adjust the results to divide the model into printable regions.',
-		image: planesImage,
-		alt: 'Two editable print planes dividing a model in Pentos Slicer',
+			'Select a slicing mode. Refine automatically suggested planes or position and bend guide surfaces to shape curved layers.',
 	},
 	{
-		step: '03',
-		title: 'Slice and inspect',
+
+		title: 'Slice your model',
 		description:
-			'Generate one coordinated five-axis G-code file, preview its path, and download it for the printer.',
-		image: sliceImage,
-		alt: 'A three-region multiplanar toolpath preview in Pentos Slicer',
+			'Choose material and print settings, then generate a coordinated five-axis toolpath with Pentos and PrusaSlicer.',
+	},
+	{
+
+		title: 'Inspect and export',
+		description:
+			'Review the toolpath, scrub through machine motion, and download the generated G-code for your printer.',
 	},
 ];
 ---
 
 <Layout
 	title="Software — Pentos"
-	description="Explore Pentos Slicer and the standard Klipper firmware workflow behind accessible five-axis 3D printing."
+	description="Explore multiplanar and nonplanar slicing, curved guide surfaces, and interactive five-axis machine previews with Pentos Slicer."
 >
 	<main>
 		<PageIntro
 			id="software"
-			title="Software"
-			description="The slicer and firmware workflow that turns a 3D model into coordinated five-axis motion."
-		/>
 
-		<section class="border-b border-border bg-background" aria-label="Pentos Slicer demonstration">
-			<div class="mx-auto max-w-7xl px-6 pt-0 pb-12 lg:px-8 lg:pb-8 xl:px-12">
-				<div class="overflow-hidden rounded-2xl">
-					<video
-						class="block aspect-video w-full transform-gpu"
-						autoplay
-						loop
-						muted
-						playsinline
-						preload="metadata"
-						aria-label="Demonstration of the Pentos Slicer workflow"
-					>
-						<source src={slicerDemo} type="video/mp4" />
-						Your browser does not support embedded video.
-					</video>
-				</div>
+			description="An open-source slicer that brings indexed and simultaneous five-axis printing into one browser interface. Edit cutting planes and curved layers directly on your model, then preview the printer’s motion and export G-code."
+		>
+			<Fragment slot="title">Pentos Slicer makes <span class="text-primary">five-axis printing</span> accessible.</Fragment>
+		</PageIntro>
+
+		<section class="border-b border-border bg-background" aria-labelledby="slicer-demo-title">
+			<div class="mx-auto max-w-5xl px-6 pb-12 lg:pb-16">
+				<h2 id="slicer-demo-title" class="mb-5 text-center font-heading text-2xl font-semibold tracking-tight">Pentos Slicer in action</h2>
+				<video class="aspect-video w-full rounded-xl border border-border bg-card" controls playsinline preload="metadata" aria-label="Pentos Slicer demo showing model import, cutting planes, and indexed toolpaths">
+					<source src={slicerDemo} type="video/mp4" />
+					Your browser does not support embedded video.
+				</video>
 			</div>
 		</section>
 
-		<section class="border-b border-border bg-muted/40" aria-labelledby="overview-title">
-			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+		<section id="slicing-modes" class="border-b border-border bg-muted/40" aria-labelledby="modes-title">
+			<div class="mx-auto max-w-7xl px-6 py-20">
 				<SectionHeading
-					id="overview-title"
-					description="Divide a model into printable regions, choose how each one is built, and preview the complete multiplanar toolpath."
+					id="modes-title"
+					description="Split a model into sections that print from different angles, or shape layers that curve with the part. You can set up either print visually without writing G-code by hand."
 				>
-					Pentos <span class="text-primary">Slicer</span>
+					Two ways to build <span class="text-secondary">beyond flat layers.</span>
 				</SectionHeading>
 
-				<div class="mt-10 grid gap-8 lg:grid-cols-5 lg:items-center">
-					<div class="overflow-hidden rounded-2xl border border-border bg-card p-2 shadow-sm lg:col-span-3">
-						<Image
-							class="aspect-video w-full rounded-xl object-cover"
-							src={slicerPreview}
-							alt="Pentos Slicer previewing a model with multiple print orientations"
-							loading="eager"
-						/>
-					</div>
+				<div class="mt-12 grid gap-6 lg:grid-cols-2">
+					<article class="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+						<div class="p-3">
+							<Image class="aspect-video w-full rounded-xl bg-muted object-contain" width={720} src={multiplanarSetup} alt="Editable cutting planes dividing a model in Pentos Slicer" />
+						</div>
+						<div class="p-6">
 
-					<div class="space-y-5 text-lg leading-8 text-muted-foreground lg:col-span-2">
-						<p>
-							Conventional slicers keep every layer parallel to the build plate. Pentos lets
-							each region print from a more useful direction instead.
-						</p>
-						<p>
-							It orients and slices those regions with PrusaSlicer, then adds the platform's tilt
-							and rotation moves.
-						</p>
-					</div>
+							<h3 class="font-heading text-2xl font-semibold tracking-tight">Multiplanar slicing</h3>
+							<p class="mt-4 leading-7 text-muted-foreground">Divide a model into regions with different print orientations. Add planes manually or use automatic plane selection, then adjust their order, position, and orientation.</p>
+							<p class="mt-4 leading-7 text-muted-foreground">The base prints with the bed flat. PrusaSlicer slices each oriented section separately, and Pentos merges the toolpaths with pivot-compensated moves between sections. The rotary axes hold their position during each section’s extrusion.</p>
+						</div>
+					</article>
+					<article class="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+						<div class="p-3">
+							<Image class="aspect-video w-full rounded-xl bg-muted object-contain" width={720} src={nonplanarSetup} alt="Editable guide surfaces inside a translucent concave-top block" />
+						</div>
+						<div class="p-6">
+
+							<h3 class="font-heading text-2xl font-semibold tracking-tight">Nonplanar slicing</h3>
+							<p class="mt-4 leading-7 text-muted-foreground">Position, rotate, and bend guide surfaces to define how layers flow through your model. Snap guides to model faces and visualize the layer field as you refine them.</p>
+							<p class="mt-4 leading-7 text-muted-foreground">Pentos flattens the model for PrusaSlicer, then maps the generated paths back into curved layers with coordinated five-axis motion.</p>
+						</div>
+					</article>
 				</div>
 			</div>
 		</section>
 
-		<section class="border-b border-border bg-background" aria-labelledby="capabilities-title">
-			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
-				<div class="max-w-2xl">
-					<h2
-						id="capabilities-title"
-						class="font-heading text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
-					>
-						One workspace for the<br />
-						<span class="text-primary">whole slicing process.</span>
-					</h2>
-					<p class="mt-5 leading-7 text-muted-foreground">
-						Prepare, orient, slice, and review the complete print without moving between
-						separate tools.
-					</p>
-				</div>
+		<section id="multiplanar-pipeline" class="border-b border-border bg-background" aria-labelledby="multiplanar-pipeline-title">
+			<div class="mx-auto max-w-7xl px-6 py-16">
+				<h2 id="multiplanar-pipeline-title" class="font-heading text-3xl font-semibold tracking-tight">How cutting planes become indexed toolpaths</h2>
+				<ol class="mt-7 grid gap-5 sm:grid-cols-3">
+					{[
+						{ title: 'Place cutting planes', image: multiplanarSetup, alt: 'Editable cutting planes positioned across a model in Pentos Slicer', text: 'Add planes by hand or start with Auto Planes. Adjust their order and angle to give each section a flat surface to print from.' },
+						{ title: 'Orient and slice each section', image: elbowSections, alt: 'The 90° elbow split into two sections by an angled cut', text: 'The base section prints with the bed flat. Pentos turns each remaining section so its cut face lies on a virtual build plate, then slices it separately with PrusaSlicer.' },
+						{ title: 'Merge paths and reorient the bed', image: elbowToolpaths, alt: 'Indexed extrusion paths colored by section on the assembled 90° elbow', text: 'Pentos restores each section’s toolpaths to the assembled model and compensates for the calibrated bed pivot. The nozzle lifts before the bed reorients, then both rotary axes hold still during extrusion.' },
+					].map((step) => <WorkflowStep {...step} width={640} />)}
+				</ol>
+			</div>
+		</section>
 
-				<div class="mt-12 grid gap-5 sm:grid-cols-2">
-					{
-						capabilities.map((capability) => (
-							<article class="rounded-2xl border border-border bg-card p-6 shadow-sm lg:p-8">
-								<p class="text-sm font-semibold text-primary">{capability.eyebrow}</p>
-								<h3 class="mt-3 font-heading text-2xl font-semibold tracking-tight">
-									{capability.title}
-								</h3>
-								<p class="mt-3 leading-7 text-muted-foreground">
-									{capability.description}
-								</p>
-							</article>
-						))
-					}
+		<section id="nonplanar-pipeline" class="border-b border-border bg-background" aria-labelledby="pipeline-title">
+			<div class="mx-auto max-w-7xl px-6 py-16">
+				<h2 id="pipeline-title" class="font-heading text-3xl font-semibold tracking-tight">How curved guides become toolpaths</h2>
+				<ol class="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+					{[
+						{ title: 'Place guides', image: guideImage, alt: 'Orange guide surfaces inside the block', text: 'Place at least two ordered bicubic guides. Each guide is shaped by a 4 × 4 grid of heights.' },
+						{ title: 'Solve the height field', image: fieldImage, alt: 'Purple to yellow field showing increasing height', text: 'Pentos tetrahedralizes the volume and solves a smooth scalar field that approximately follows the guides.' },
+						{ title: 'Slice the flattened model', image: flattenedImage, alt: 'Block with the curved guides flattened into horizontal levels', text: 'The calculated heights replace the mesh’s Z coordinates so PrusaSlicer can generate ordinary planar toolpaths.' },
+						{ title: 'Restore the curved paths', image: restoredImage, alt: 'Colored extrusion paths following the concave top', text: 'Barycentric mapping restores paths to the original shape and adjusts extrusion and feed rate.' },
+					].map((step) => <WorkflowStep {...step} width={420} />)}
+				</ol>
+				<p class="mt-6 max-w-3xl leading-7 text-muted-foreground">Pentos smooths the local layer normals and rotary angles, then recalculates XYZ about the calibrated pivot. The first two layers stay flat for adhesion, and the next four gradually transition to curved layers.</p>
+			</div>
+		</section>
+
+		<section id="machine-preview" class="border-b border-border bg-background" aria-labelledby="preview-title">
+			<div class="mx-auto max-w-7xl px-6 py-20">
+				<SectionHeading id="preview-title" description="Inspect the generated toolpath on a 3D model of Pentos. Scrub through individual moves to see the toolhead position, bed tilt, and rotation together.">
+					See how the <span class="text-primary">machine will move.</span>
+				</SectionHeading>
+				<div class="mt-12">
+					<Image class="mx-auto w-full max-w-4xl rounded-xl border border-border" width={1200} src={printerSimulation} alt="Pentos Slicer simulating a nonplanar print with the toolhead, tilted build plate, move slider, and A/B angle graph visible" />
+				</div>
+				<div class="mt-8 grid gap-8 sm:grid-cols-3">
+					<div>
+						<h3 class="font-heading text-lg font-semibold">Inspect each move</h3>
+						<p class="mt-2 leading-7 text-muted-foreground">Use the move slider to inspect machine poses throughout the generated print.</p>
+					</div>
+					<div>
+						<h3 class="font-heading text-lg font-semibold">Read the toolpath</h3>
+						<p class="mt-2 leading-7 text-muted-foreground">Show or hide travel moves and review the estimated print time.</p>
+					</div>
+					<div>
+						<h3 class="font-heading text-lg font-semibold">Follow tilt and rotation</h3>
+						<p class="mt-2 leading-7 text-muted-foreground">Inspect the A/B movement graph alongside the 3D preview.</p>
+					</div>
 				</div>
 			</div>
 		</section>
 
 		<section id="workflow" class="border-b border-border bg-muted/40" aria-labelledby="workflow-title">
-			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
-				<SectionHeading
-					id="workflow-title"
-					description="Choose the important orientations and let Pentos produce the machine-ready output."
-				>
+			<div class="mx-auto max-w-7xl px-6 py-20">
+				<SectionHeading id="workflow-title" description="Prepare, shape, slice, and review your print in one browser workspace.">
 					A clear path from <span class="text-secondary">part to print.</span>
 				</SectionHeading>
+				<ol class="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+					{workflow.map((item) => (
+						<li class="rounded-2xl border border-border bg-card p-6 shadow-sm">
 
-				<ol class="mt-12 grid gap-5 lg:grid-cols-3">
-					{
-						workflow.map((item) => (
-							<li>
-								<FeatureCard
-									title={item.title}
-									description={item.description}
-									image={item.image}
-									alt={item.alt}
-									eyebrow={`STEP ${item.step}`}
-									imageAspect="video"
-								/>
-							</li>
-						))
-					}
+							<h3 class="font-heading text-xl font-semibold tracking-tight">{item.title}</h3>
+							<p class="mt-3 leading-7 text-muted-foreground">{item.description}</p>
+						</li>
+					))}
 				</ol>
 			</div>
 		</section>
 
+		<section class="border-b border-border bg-background" aria-labelledby="capabilities-title">
+			<div class="mx-auto max-w-7xl px-6 py-20">
+				<SectionHeading id="capabilities-title" description="Keep your setup, adjust your settings, and return to a project as it develops.">
+					Built for <span class="text-primary">iteration.</span>
+				</SectionHeading>
+				<div class="mt-12 grid gap-5 lg:grid-cols-3">
+					{capabilities.map((capability) => (
+						<article class="rounded-2xl border border-border bg-card p-6 shadow-sm">
+							<h3 class="font-heading text-xl font-semibold tracking-tight">{capability.title}</h3>
+							<p class="mt-3 leading-7 text-muted-foreground">{capability.description}</p>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
 		<section class="border-b border-border bg-background" aria-labelledby="open-source-title">
-			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+			<div class="mx-auto max-w-7xl px-6 py-20">
 				<SectionHeading id="open-source-title">
 					Powered by <span class="text-secondary">open source.</span>
 				</SectionHeading>
@@ -259,15 +275,13 @@ const workflow = [
 
 		<section class="border-b border-border bg-muted/40" aria-labelledby="klipper-title">
 			<div
-				class="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-2 lg:items-start lg:px-8 lg:py-28 xl:px-12"
+				class="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-2 lg:items-start"
 			>
 				<div class="max-w-xl lg:sticky lg:top-10 lg:self-start">
-					<p class="font-heading text-sm font-semibold tracking-widest text-primary uppercase">
-						Printer firmware
-					</p>
+
 					<h2
 						id="klipper-title"
-						class="mt-4 font-heading text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
+						class="font-heading text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
 					>
 						Standard Klipper.<br />
 						<span class="text-secondary">No proprietary fork.</span>
@@ -296,7 +310,8 @@ const workflow = [
 					<article class="rounded-2xl border border-border bg-card p-6 shadow-sm sm:col-span-2">
 						<h3 class="font-heading text-xl font-semibold tracking-tight">The slicer does the coordination</h3>
 						<p class="mt-3 leading-7 text-muted-foreground">
-							Pentos Slicer calculates and writes the A/B transitions. Klipper executes the
+							Pentos Slicer calculates the coordinated XYZ motion, bed tilt, and rotation for
+							each slicing mode. Klipper executes the
 							resulting toolpath using standard machine configuration.
 						</p>
 					</article>
@@ -305,21 +320,20 @@ const workflow = [
 		</section>
 
 		<section id="get-started" class="bg-background" aria-labelledby="get-started-title">
-			<div class="mx-auto max-w-7xl px-6 pt-12 lg:px-8 lg:pt-16 xl:px-12">
+			<div class="mx-auto max-w-7xl px-6 pt-12">
 				<CallToAction>
 					<h2
 						id="get-started-title"
 						class="font-heading text-3xl font-semibold tracking-tight sm:text-4xl"
 					>
-						Start slicing in your browser
+						Run Pentos Slicer
 					</h2>
 					<p class="mt-3 text-lg leading-7 text-muted-foreground">
-						Open Pentos Slicer in your browser and turn a model into a coordinated five-axis
-						toolpath.
+						Follow the setup guide to run Pentos Slicer on your computer. Then open it in your browser to slice your first model.
 					</p>
 					<Fragment slot="actions">
-						<Button class="w-full sm:w-auto" variant="primary" size="lg" href="/slicer">
-							Open Slicer
+						<Button class="w-full sm:w-auto" variant="primary" size="lg" href={sourceUrl + "#requirements"}>
+							Setup instructions
 						</Button>
 						<Button
 							class="w-full sm:w-auto"

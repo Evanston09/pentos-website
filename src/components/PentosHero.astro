@@ -1,177 +1,23 @@
 ---
 import { Image } from 'astro:assets';
-import { Icon } from 'astro-icon/components';
-import pentosRender from '../assets/pentos_render.png';
-import excessiveSupports from '../assets/problems/excessive-supports.jpg';
-import poorSurfaceFinish from '../assets/problems/poor-surface-finish.jpg';
-import weakLayerBonding from '../assets/problems/weak-layer-bonds.jpg';
-import hardwareRetrofit from '../assets/solutions/5-Axis-Retrofit.jpg';
-import openSourcePreview from '../assets/solutions/open-source.png';
-import slicerPreview from '../assets/solutions/pentos-slicer-preview.jpg';
-import DemoSection from './DemoSection.astro';
-import HowItWorksSection from './HowItWorksSection.astro';
+import prototype from '../assets/research/prototype.jpg';
 import Button from './ui/Button.astro';
-import FeatureCard from './ui/FeatureCard.astro';
-
-const problems = [
-	{
-		title: 'Excessive Supports',
-		description:
-			'Complex overhangs require additional material, increase print time, and often leave marks after removal.',
-		image: excessiveSupports,
-		alt: 'A complex printed part encased in dense support structures',
-	},
-	{
-		title: 'Weak Layer Bonding',
-		description:
-			'Parts are often weakest between layers, especially when forces act across the print direction.',
-		image: weakLayerBonding,
-		alt: 'A printed test part splitting along a horizontal layer line under stress',
-	},
-	{
-		title: 'Poor Surface Finish',
-		description:
-			'Curved and angled surfaces can appear rough because they are approximated using stacked horizontal layers.',
-		image: poorSurfaceFinish,
-		alt: 'A close view of stair-stepping across a curved printed surface',
-	},
-];
-
-const solutions = [
-	{
-		title: '5-Axis Hardware Retrofit',
-		description:
-			'A custom two-axis build platform adds controlled tilt and rotation while preserving the familiar structure and affordability of an Ender 3.',
-		image: hardwareRetrofit,
-		alt: 'Pentos five-axis retrofit installed on an Ender 3 printer',
-		href: '#hardware',
-	},
-	{
-		title: 'Multiplanar Slicing Workflow',
-		description:
-			'Use the automatic plane selector to define multiple print planes, slice each region with existing tools, and convert the resulting G-code into coordinated 5-axis movement.',
-		image: slicerPreview,
-		alt: 'Pentos slicer preview showing a model divided across multiple print planes',
-		imageFit: 'contain' as const,
-		href: '/software',
-	},
-	{
-		title: 'Open-Source and Accessible',
-		description:
-			'Affordable hardware, software, configuration, and documentation give students, makers, and researchers a platform they can reproduce and extend.',
-		image: openSourcePreview,
-		alt: 'CAD model of the open-source Pentos five-axis build platform',
-		imageFit: 'contain' as const,
-		href: 'https://github.com/Evanston09/pentos',
-	},
-];
 ---
 
-<div class="flex min-h-[95vh] flex-col">
-	<main class="mx-auto flex max-w-7xl flex-1 px-6 lg:px-8 xl:px-12">
-		<section
-			class="grid flex-1 items-center gap-8 py-16 lg:grid-cols-2 xl:gap-12 xl:py-20"
-			aria-labelledby="hero-title"
-		>
-			<div class="max-w-2xl">
-				<h1
-					id="hero-title"
-					class="font-heading text-5xl leading-tight font-semibold tracking-tight sm:text-6xl xl:text-7xl"
-				>
-					Accessible<br />
-					5-axis<br />
-					3D printing<br />
-					<span class="text-secondary">is here.</span>
-				</h1>
-				<p class="mt-7 max-w-xl leading-7 text-muted-foreground">
-					Pentos is an open-source hardware retrofit and software workflow that brings affordable
-					5-axis capability to an Ender 3. It enables multiplanar printing with the goal of reducing
-					support material, improving part strength, and producing better surface finishes.
-				</p>
-
-				<div class="mt-8 flex flex-col gap-3 sm:flex-row">
-					<Button class="w-full sm:w-auto" variant="secondary" size="lg" href="#project">
-						Explore the Project
-					</Button>
-					<Button class="w-full sm:w-auto" variant="outline" size="lg" href="https://github.com/Evanston09/pentos">
-						<Icon name="hugeicons:github" />
-						View GitHub
-					</Button>
-				</div>
-			</div>
-
-			<div class="max-w-2xl lg:translate-x-12 lg:scale-175 xl:translate-x-16">
-				<Image
-					class="w-full"
-					src={pentosRender}
-					alt="Pentos five-axis Ender 3 printer retrofit"
-					loading="eager"
-				/>
-			</div>
-		</section>
-	</main>
-</div>
-
-<section
-	id="problem"
-	class="border-y border-border bg-muted/40"
-	aria-labelledby="problem-title"
->
-	<div
-		class="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-3 lg:gap-16 lg:px-8 lg:py-28 xl:px-12"
-	>
-		<div class="max-w-xl lg:sticky lg:top-10 lg:self-start">
-			<h2
-				id="problem-title"
-				class="font-heading text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
-			>
-				Why 5-axis<br class="hidden lg:block" />
-				printing <span class="text-secondary">matters.</span>
-			</h2>
-			<p class="mt-6 leading-7 text-muted-foreground">
-				Conventional 3-axis FDM printers build parts in flat, horizontal layers. That limits
-				each toolpath to a single direction—adding unnecessary support material, weakening
-				layer bonds, and degrading angled or complex surfaces.
-			</p>
-		</div>
-
-		<div class="grid gap-5 sm:grid-cols-3 lg:col-span-2">
-			{
-				problems.map((problem) => (
-					<FeatureCard {...problem} />
-				))
-			}
+<section class="mx-auto grid max-w-7xl items-center gap-10 px-6 py-14 lg:grid-cols-2 lg:py-20" aria-labelledby="hero-title">
+	<div>
+		<h1 id="hero-title" class="font-heading text-5xl leading-tight font-semibold tracking-tight sm:text-6xl">
+			Five-axis printing on an <span class="text-secondary">Ender 3</span>
+		</h1>
+		<p class="mt-6 max-w-xl text-lg leading-8 text-muted-foreground">
+			Pentos adds a tilting, rotating heated build plate to a desktop 3D printer. Use cutting planes to print from multiple orientations or curved guides to print continuous nonplanar layers, all in one browser-based slicer.
+		</p>
+		<div class="mt-8 flex flex-wrap gap-3">
+			<Button variant="secondary" size="lg" href="/research">Explore the results</Button>
+			<Button variant="outline" size="lg" href="/hardware">See the hardware</Button>
 		</div>
 	</div>
+	<figure class="overflow-hidden rounded-2xl border border-border bg-card">
+		<Image src={prototype} alt="The physical Pentos retrofit mounted on an Ender 3 V2" width={1000} loading="eager" class="w-full" />
+	</figure>
 </section>
-
-<section id="solution" class="border-b border-border" aria-labelledby="solution-title">
-	<div
-		class="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-3 lg:gap-16 lg:px-8 lg:py-28 xl:px-12"
-	>
-		<div class="max-w-xl lg:order-2 lg:sticky lg:top-10 lg:self-start">
-			<h2
-				id="solution-title"
-				class="font-heading text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
-			>
-				How Pentos solves <span class="text-secondary">these problems.</span>
-			</h2>
-			<p class="mt-6 leading-7 text-muted-foreground">
-				Pentos adds a tilting and rotating build platform to a standard Ender 3, giving the
-				printer two additional axes of motion. Each section of a model can be printed from a
-				more useful orientation instead of being limited to flat, horizontal layers.
-			</p>
-		</div>
-
-		<div class="grid gap-5 sm:grid-cols-3 lg:order-1 lg:col-span-2">
-			{
-				solutions.map((solution) => (
-					<FeatureCard {...solution} />
-				))
-			}
-		</div>
-	</div>
-</section>
-
-<DemoSection />
-<HowItWorksSection />

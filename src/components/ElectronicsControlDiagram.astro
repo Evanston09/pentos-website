@@ -1,12 +1,12 @@
 ---
 const controlBoards = [
 	{
-		label: 'Existing Printer Control',
+
 		title: 'Ender 3 Motherboard',
 		description: 'Controls the original printer hardware and toolhead.',
 	},
 	{
-		label: 'Added Axis Control',
+
 		title: 'Any Motherboard',
 		description: 'Controls the tilt and spin axes and reads homing sensors.',
 	},
@@ -14,17 +14,17 @@ const controlBoards = [
 
 const controlledHardware = [
 	{
-		label: 'Ender 3 Hardware',
+
 		title: 'Motors and Toolhead',
 		description: 'X, Y, and Z motors, extruder, and hotend/nozzle systems.',
 	},
 	{
-		label: 'Pentos Motion',
+
 		title: 'Tilt and Spin Motors',
 		description: 'Move the two added build-platform axes.',
 	},
 	{
-		label: 'Homing Feedback',
+
 		title: 'Hall-Effect Sensors',
 		description: 'Provide non-contact homing feedback to the added motherboard.',
 	},
@@ -38,25 +38,25 @@ const controlledHardware = [
 		preserveAspectRatio="none"
 		aria-hidden="true"
 	>
-		<path class="signal-track" d="M 275 250 H 345" />
-		<path class="signal-track" d="M 555 250 H 600 V 170 H 635" />
-		<path class="signal-track" d="M 555 250 H 600 V 330 H 635" />
-		<path class="signal-track" d="M 845 170 H 890 V 105 H 925" />
-		<path class="signal-track" d="M 845 330 H 890 V 250 H 925" />
-		<path class="signal-track" d="M 845 330 H 890 V 395 H 925" />
+		<path class="electronics-signal-track stroke-blue-500" d="M 275 250 H 345" />
+		<path class="electronics-signal-track stroke-blue-500" d="M 555 250 H 600 V 170 H 635" />
+		<path class="electronics-signal-track stroke-blue-500" d="M 555 250 H 600 V 330 H 635" />
+		<path class="electronics-signal-track stroke-blue-500" d="M 845 170 H 890 V 105 H 925" />
+		<path class="electronics-signal-track stroke-blue-500" d="M 845 330 H 890 V 250 H 925" />
+		<path class="electronics-signal-track stroke-blue-500" d="M 845 330 H 890 V 395 H 925" />
 
-		<path class="signal-path" d="M 275 250 H 345" />
-		<path class="signal-path" d="M 555 250 H 600 V 170 H 635" />
-		<path class="signal-path" d="M 555 250 H 600 V 330 H 635" />
-		<path class="signal-path" d="M 845 170 H 890 V 105 H 925" />
-		<path class="signal-path" d="M 845 330 H 890 V 250 H 925" />
-		<path class="feedback-path" d="M 925 395 H 890 V 330 H 845" />
+		<path class="electronics-signal-path stroke-blue-500" d="M 275 250 H 345" />
+		<path class="electronics-signal-path stroke-blue-500" d="M 555 250 H 600 V 170 H 635" />
+		<path class="electronics-signal-path stroke-blue-500" d="M 555 250 H 600 V 330 H 635" />
+		<path class="electronics-signal-path stroke-blue-500" d="M 845 170 H 890 V 105 H 925" />
+		<path class="electronics-signal-path stroke-blue-500" d="M 845 330 H 890 V 250 H 925" />
+		<path class="electronics-feedback-path stroke-blue-500" d="M 925 395 H 890 V 330 H 845" />
 	</svg>
 
 	<div class="relative grid items-center gap-6 lg:grid-cols-4 lg:gap-12">
 		<div class="rounded-xl border border-border bg-background p-5">
-			<p class="text-xs font-semibold tracking-wider text-secondary uppercase">Toolpath Input</p>
-			<h3 class="mt-2 font-heading text-xl font-semibold tracking-tight">Pentos Slicer</h3>
+
+			<h3 class="font-heading text-xl font-semibold tracking-tight">Pentos Slicer</h3>
 			<p class="mt-2 text-sm leading-6 text-muted-foreground">
 				Produces coordinated five-axis G-code.
 			</p>
@@ -65,8 +65,8 @@ const controlledHardware = [
 		<div class="mobile-signal h-8 lg:hidden" aria-hidden="true"></div>
 
 		<div class="rounded-xl border border-border bg-background p-5">
-			<p class="text-xs font-semibold tracking-wider text-secondary uppercase">Klipper Host</p>
-			<h3 class="mt-2 font-heading text-xl font-semibold tracking-tight">Raspberry Pi</h3>
+
+			<h3 class="font-heading text-xl font-semibold tracking-tight">Raspberry Pi</h3>
 			<p class="mt-2 text-sm leading-6 text-muted-foreground">
 				Runs Klipper and coordinates commands across both motherboards.
 			</p>
@@ -74,14 +74,12 @@ const controlledHardware = [
 
 		<div class="mobile-signal h-8 lg:hidden" aria-hidden="true"></div>
 
-		<div class="grid gap-6 border-l-2 border-primary/30 pl-5 lg:border-0 lg:pl-0">
+		<div class="grid gap-6 border-l-2 border-blue-500/30 pl-5 lg:border-0 lg:pl-0">
 			{
 				controlBoards.map((board) => (
 					<div class="rounded-xl border border-border bg-background p-4">
-						<p class="text-xs font-semibold tracking-wider text-secondary uppercase">
-							{board.label}
-						</p>
-						<h3 class="mt-1 font-heading font-semibold tracking-tight">{board.title}</h3>
+
+						<h3 class="font-heading font-semibold tracking-tight">{board.title}</h3>
 						<p class="mt-1 text-sm leading-6 text-muted-foreground">{board.description}</p>
 					</div>
 				))
@@ -90,14 +88,12 @@ const controlledHardware = [
 
 		<div class="mobile-signal h-8 lg:hidden" aria-hidden="true"></div>
 
-		<div class="grid gap-4 border-l-2 border-primary/30 pl-5 lg:border-0 lg:pl-0">
+		<div class="grid gap-4 border-l-2 border-blue-500/30 pl-5 lg:border-0 lg:pl-0">
 			{
 				controlledHardware.map((hardware) => (
 					<div class="rounded-xl border border-border bg-background p-4">
-						<p class="text-xs font-semibold tracking-wider text-secondary uppercase">
-							{hardware.label}
-						</p>
-						<h3 class="mt-1 font-heading font-semibold tracking-tight">{hardware.title}</h3>
+
+						<h3 class="font-heading font-semibold tracking-tight">{hardware.title}</h3>
 						<p class="mt-1 text-sm leading-6 text-muted-foreground">{hardware.description}</p>
 					</div>
 				))
@@ -108,16 +104,15 @@ const controlledHardware = [
 </div>
 
 <style>
-	.signal-track {
+	.electronics-signal-track {
 		fill: none;
-		stroke: var(--primary);
 		stroke-width: 4;
 		stroke-linecap: round;
 		opacity: 0.25;
 	}
 
-	.signal-path,
-	.feedback-path {
+	.electronics-signal-path,
+	.electronics-feedback-path {
 		fill: none;
 		stroke-width: 4;
 		stroke-linecap: round;
@@ -125,12 +120,7 @@ const controlledHardware = [
 		animation: signal-flow 1.2s linear infinite;
 	}
 
-	.signal-path {
-		stroke: var(--primary);
-	}
-
-	.feedback-path {
-		stroke: var(--primary);
+	.electronics-feedback-path {
 		animation-direction: reverse;
 	}
 
@@ -140,8 +130,8 @@ const controlledHardware = [
 		border-radius: 9999px;
 		background: repeating-linear-gradient(
 			to bottom,
-			var(--primary) 0,
-			var(--primary) 8px,
+			var(--color-blue-500) 0,
+			var(--color-blue-500) 8px,
 			transparent 8px,
 			transparent 14px
 		);
@@ -162,8 +152,8 @@ const controlledHardware = [
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.signal-path,
-		.feedback-path,
+		.electronics-signal-path,
+		.electronics-feedback-path,
 		.mobile-signal {
 			animation: none;
 		}

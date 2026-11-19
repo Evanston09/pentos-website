@@ -6,6 +6,7 @@ import spinAxis from '../assets/hardware/spin_axis.gif';
 import spinningRender from '../assets/hardware/spinning_render.webm';
 import tiltAxis from '../assets/hardware/tilt_axis.gif';
 import ElectronicsControlDiagram from '../components/ElectronicsControlDiagram.astro';
+import DataTable from '../components/ui/DataTable.astro';
 import Button from '../components/ui/Button.astro';
 import CallToAction from '../components/ui/CallToAction.astro';
 import FeatureCard from '../components/ui/FeatureCard.astro';
@@ -17,156 +18,41 @@ const assemblies = [
 	{
 		title: 'A Axis (Tilt Axis)',
 		description:
-			'The tilt assembly changes the angle of the build platform during multiplanar printing.',
+			'A GT2 belt drive with a 2:1 reduction tilts the build platform.',
 		image: tiltAxis,
 		alt: 'Animation showing the Pentos build platform tilting',
 	},
 	{
 		title: 'B Axis (Spin Axis)',
 		description:
-			'The spin assembly rotates the build platform to position the part for each toolpath.',
+			'A 1:1 GT2 belt drive rotates the surface. Heater wiring limits repeated turns in one direction.',
 		image: spinAxis,
 		alt: 'Animation showing the Pentos build platform spinning',
 	},
 ];
 
-const bomRows = [
-	{
-		component: 'Gates PowerGrip 2GT Pulley - 20 Tooth - 5mm - 6mm',
-		href: 'https://kb-3d.com/store/motion/213-gates-powergrip-2gt-pulley-20-tooth-5mm-6mm-1634481851944.html',
-		quantity: '2',
-		unitPrice: '$3.99',
-		total: '$7.98',
-		status: "Don't Have",
-		notes: '',
-	},
-	{
-		component: '8mm REX Shaft with E-Clip - 32mm Length',
-		href: 'https://www.gobilda.com/8mm-rex-shaft-with-e-clip-stainless-steel-32mm-length/',
-		quantity: '2',
-		unitPrice: '$3.89',
-		total: '$7.78',
-		status: '',
-		notes: 'A longer shaft is available, but an exact 32mm shaft is still needed.',
-	},
-	{
-		component: '2910 Series Aluminum Clamping Collar - 8mm REX ID',
-		href: 'https://www.gobilda.com/2910-series-aluminum-clamping-collar-8mm-rex-id-x-20mm-od-9mm-length/',
-		quantity: '2',
-		unitPrice: '$4.99',
-		total: '$9.98',
-		status: 'Have',
-		notes: 'Sonic hubs may work for this use case.',
-	},
-	{
-		component: 'LDO Stepper Motor - Nema 17 - 42STH48-1684MAC',
-		href: 'https://kb-3d.com/store/stepper-motors-servos/64-ldo-stepper-motor-nema-17-42sth48-1684mac-1642876248477.html',
-		quantity: '2',
-		unitPrice: '$19.49',
-		total: '$38.98',
-		status: "Don't Have",
-		notes: '',
-	},
-	{
-		component: '16mm Silicone Spacers',
-		href: 'https://www.amazon.com/Printer-Silicone-Leveling-Heat-Resistant-Spacers/dp/B0D53VB522',
-		quantity: '1',
-		unitPrice: '$8.99',
-		total: '$8.99',
-		status: "Don't Have",
-		notes: '',
-	},
-	{
-		component: 'Prusa Research Heatbed Tile',
-		href: 'https://www.prusa3d.com/product/heatbed-tile/',
-		quantity: '1',
-		unitPrice: '$24.99',
-		total: '$24.99',
-		status: 'Have',
-		notes: '',
-	},
-	{
-		component: 'GT2 Pinion Timing Pulley - 8mm REX Bore - 20 Tooth',
-		href: 'https://www.gobilda.com/2mm-pitch-gt2-pinion-timing-pulley-8mm-rex-bore-20-tooth/',
-		quantity: '1',
-		unitPrice: '$7.99',
-		total: '$7.99',
-		status: '',
-		notes: '',
-	},
-	{
-		component: 'M3 Standoff - 15mm - 4 Pack',
-		href: 'https://www.revrobotics.com/M3-Standoffs/',
-		quantity: '1',
-		unitPrice: '$3.00',
-		total: '$3.00',
-		status: "Don't Have",
-		notes: '',
-	},
-	{
-		component: 'GT2 Pinion Timing Pulley - 8mm REX Bore - 40 Tooth',
-		href: 'https://www.gobilda.com/2mm-pitch-gt2-pinion-timing-pulley-8mm-rex-bore-40-tooth/',
-		quantity: '1',
-		unitPrice: '$8.99',
-		total: '$8.99',
-		status: '',
-		notes: '',
-	},
-	{
-		component: 'GT2 Timing Belt - 6mm Width - 184mm Length - 92 Tooth',
-		href: 'https://www.gobilda.com/2mm-pitch-gt2-timing-belt-6mm-width-184mm-pitch-length-92-tooth/',
-		quantity: '2',
-		unitPrice: '$3.19',
-		total: '$6.38',
-		status: '',
-		notes: '',
-	},
-	{
-		component: '1611 Series Flanged Ball Bearing - 8mm REX ID - 2 Pack',
-		href: 'https://www.gobilda.com/1611-series-flanged-ball-bearing-8mm-rex-id-x-14mm-od-5mm-thickness-2-pack/',
-		quantity: '2',
-		unitPrice: '$5.99',
-		total: '$11.98',
-		status: 'Have',
-		notes: '',
-	},
-	{
-		component: '8mm REX Shaft with E-Clip - 52mm Length',
-		href: 'https://www.gobilda.com/8mm-rex-shaft-with-e-clip-stainless-steel-52mm-length/',
-		quantity: '1',
-		unitPrice: '$4.39',
-		total: '$4.39',
-		status: 'Have',
-		notes: 'Longer than required, but should work.',
-	},
-	{
-		component: 'Any Klipper-Capable Mainboard',
-		href: '',
-		quantity: '1',
-		unitPrice: 'Varies',
-		total: 'Varies',
-		status: "Don't Have",
-		notes: '',
-	},
-	{
-		component: 'Any Klipper-Capable Computer',
-		href: '',
-		quantity: '1',
-		unitPrice: 'Varies',
-		total: 'Varies',
-		status: '',
-		notes: '',
-	},
-	{
-		component: 'Custom PEI Sheet',
-		href: '',
-		quantity: '1',
-		unitPrice: 'Varies',
-		total: 'Varies',
-		status: '',
-		notes: '',
-	},
+const retrofitRows = [
+	['Pulleys and belts', 'Two 20T motor pulleys, 20T and 40T REX pulleys, two 184 mm GT2 belts', 'Gates / goBILDA', '$32.34'],
+	['8 mm REX shafts', 'Two 32 mm shafts and one 52 mm shaft, with E-clips', 'goBILDA', '$12.17'],
+	['Sonic hubs', 'Two 1309 Series hubs with 8 mm REX bore', 'goBILDA', '$15.98'],
+	['Bearings', 'Four flanged REX bearings and one 12 × 21 × 5 mm thrust bearing', 'goBILDA', '$16.97'],
+	['Stepper motors', 'Two 42STH48-1684MAC NEMA 17 motors', 'LDO', '$38.98'],
+	['Mounting hardware', 'Four silicone spacers, four 15 mm M3 standoffs, eight M4 heat-set inserts', 'Amazon / REV / CNC Kitchen', '$7.59'],
+	['Screws', 'Eight M4 × 12 mm, one M3 × 8 mm, four M3 × 35 mm, one M4 × 16 mm', 'Bolts and Nuts', '$2.56'],
+	['Heated platform', 'Heatbed Tile and 90 × 90 mm Garolite G10 plate', 'Prusa Research / Amazon', '$25.64'],
+	['Printed structure', '125 g of PLA including fabrication supports', 'PLA filament', '$2.25'],
+	['Heater connector', 'One 4-pin Clickmate 0151350402', 'Molex', '$3.69'],
+	['JST connectors', 'Four XHP-3 housings, one XHP-2 housing, 14 contacts', 'JST', '$2.13'],
+	['Wire', '21.5 ft of 22 AWG stranded wire', 'Pololu', '$4.71'],
 ];
+
+const suppliedRows = [
+	['Base printer', 'Ender 3 or compatible clone budget allocation', '$150.00'],
+	['Controller', 'BIGTREETECH SKR 1.4 Turbo with five TMC2208 drivers', '$65.79'],
+	['Host', 'Raspberry Pi 4 Model B, 4 GB board', '$100.00'],
+	['Rotary homing', 'Two 12 × 3 mm magnets and two A3144 Hall-effect sensors', '$1.97'],
+];
+
 ---
 
 <Layout
@@ -176,12 +62,14 @@ const bomRows = [
 	<main>
 		<PageIntro
 			id="hardware"
-			title="Hardware"
-			description="The mechanical and electronic systems that add tilt and rotation to a standard Ender 3."
-		/>
+
+			description="The mechanical and electronic systems that add tilt and rotation to the tested Creality Ender 3 V2."
+		>
+			<Fragment slot="title">Turning a Desktop Printer Into a <span class="text-secondary">Five-Axis Machine</span></Fragment>
+		</PageIntro>
 
 		<section class="border-b border-border bg-background" aria-label="Pentos hardware render">
-			<div class="mx-auto max-w-7xl px-6 pt-0 pb-12 lg:px-8 lg:pb-8 xl:px-12">
+			<div class="mx-auto max-w-7xl px-6 pt-0 pb-12">
                 <video
                     class="block aspect-video w-full transform-gpu"
                     autoplay
@@ -197,8 +85,8 @@ const bomRows = [
 			</div>
 		</section>
 
-		<section class="border-b border-border bg-background" aria-labelledby="mechanical-title">
-			<div class="mx-auto max-w-5xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+		<section class="border-b border-border bg-muted/40" aria-labelledby="mechanical-title">
+			<div class="mx-auto max-w-5xl px-6 py-20">
 				<SectionHeading
 					id="mechanical-title"
 					description="See how the printer's existing linear motion works with the two added build-platform axes."
@@ -232,23 +120,22 @@ const bomRows = [
 								Complete 5-Axis Assembly
 							</h3>
 							<p class="mt-3 leading-7 text-muted-foreground">
-								Pentos combines the Ender 3's X, Y, and Z movement with dedicated tilt and spin
-								axes at the build platform.
+								The retrofit mounts to the existing Y-axis carriage and retains the original Cartesian motion system. Two LDO NEMA 17 motors drive the rotary axes. The 90 × 90 mm, 24 V Prusa Heatbed Tile has an integrated thermistor and uses a Garolite G10 print surface.
 							</p>
 						</div>
 					</article>
 
 					{
 						assemblies.map((assembly) => (
-							<FeatureCard {...assembly} imageFit="contain" imageAspect="video" />
+							<FeatureCard {...assembly} />
 						))
 					}
 				</div>
 			</div>
 		</section>
 
-		<section class="border-b border-border bg-muted/40" aria-labelledby="electronics-title">
-			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+		<section class="border-b border-border bg-background" aria-labelledby="electronics-title">
+			<div class="mx-auto max-w-7xl px-6 py-20">
 				<SectionHeading
 					id="electronics-title"
 					description="Follow how a sliced toolpath becomes synchronized movement across the printer and both added platform axes."
@@ -258,71 +145,34 @@ const bomRows = [
 
 				<div class="mt-10">
 					<ElectronicsControlDiagram />
+					<div class="mx-auto mt-8 grid max-w-5xl gap-5 text-base leading-7 text-muted-foreground md:grid-cols-2">
+						<p>The Ender 3 V2 board drives XYZ and the extruder. A BIGTREETECH SKR 1.4 Turbo controls A, B, and the heated tile. A Raspberry Pi 4 coordinates both boards through Klipper.</p>
+						<p>A3144 Hall-effect sensors detect embedded magnets for repeatable rotary homing. Klipper offsets establish axis zero from each trigger. Builders adapting the retrofit to another printer should check mounting geometry, clearances, and electronics.</p>
+					</div>
 				</div>
 			</div>
 		</section>
 
-		<section class="border-b border-border bg-background" aria-labelledby="bom-title">
-			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28 xl:px-12">
+		<section class="border-b border-border bg-muted/40" aria-labelledby="bom-title">
+			<div class="mx-auto max-w-7xl px-6 py-20">
 				<SectionHeading
 					id="bom-title"
-					description="Current working parts list. Configurable electronics and custom-part prices vary by component choice."
+					description="Estimated 2026 reproduction costs for the quantities used. Pack prices are prorated, and shipping and tax are excluded."
 				>
 					Bill of <span class="text-primary">Materials</span>
 				</SectionHeading>
-				<p class="mt-5 text-center font-heading text-lg font-semibold text-foreground">
-					Priced components:
-					<span class="ml-2 text-4xl font-bold tracking-tight text-primary underline">
-						$141.43
-					</span>
+				<p class="mt-5 text-center text-lg text-muted-foreground">
+					<strong class="text-foreground">$482.77 total</strong> · $332.77 excluding the base printer · $165.01 in retrofit parts
 				</p>
-
-				<div class="mt-10 overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
-					<table class="w-full border-collapse text-left text-sm">
-						<thead class="bg-muted">
-							<tr>
-								<th class="px-5 py-4 font-semibold text-foreground" scope="col">Component</th>
-								<th class="px-5 py-4 font-semibold text-foreground" scope="col">Quantity</th>
-								<th class="px-5 py-4 font-semibold text-foreground" scope="col">Unit Price</th>
-								<th class="px-5 py-4 font-semibold text-foreground" scope="col">Total</th>
-								<th class="px-5 py-4 font-semibold text-foreground" scope="col">Source</th>
-							</tr>
-						</thead>
-						<tbody>
-							{
-								bomRows.map((row) => (
-									<tr class="border-t border-border">
-										<th class="px-5 py-4 font-medium text-foreground" scope="row">
-											{row.component}
-										</th>
-										<td class="px-5 py-4 text-muted-foreground">{row.quantity}</td>
-										<td class="px-5 py-4 text-muted-foreground">{row.unitPrice}</td>
-										<td class="px-5 py-4 font-medium text-foreground">{row.total}</td>
-										<td class="px-5 py-4">
-											{row.href ? (
-												<a
-													class="font-medium text-secondary no-underline hover:underline"
-													href={row.href}
-													target="_blank"
-													rel="noreferrer"
-												>
-													View
-												</a>
-											) : (
-												<span class="text-muted-foreground">—</span>
-											)}
-										</td>
-									</tr>
-								))
-							}
-						</tbody>
-					</table>
+				<div class="mt-8 space-y-5">
+					<DataTable caption="Retrofit parts" columns={['Component', 'Quantity and specification', 'Supplier', 'Cost']} rows={retrofitRows} />
+					<DataTable caption="Estimated replacement cost of supplied hardware" columns={['Component', 'Specification', 'Cost']} rows={suppliedRows} />
 				</div>
 			</div>
 		</section>
 
 		<section class="bg-background">
-			<div class="mx-auto max-w-7xl px-6 pt-12 lg:px-8 lg:pt-16 xl:px-12">
+			<div class="mx-auto max-w-7xl px-6 pt-12">
 				<CallToAction>
 					<h2 class="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
 						Download the hardware files
@@ -331,11 +181,11 @@ const bomRows = [
 						Get the CAD models, printable parts, and bill of materials for the Pentos retrofit.
 					</p>
 					<Fragment slot="actions">
-						<Button class="w-full sm:w-auto" variant="primary" size="lg" href="#">
-							Download CAD
+						<Button class="w-full sm:w-auto" variant="primary" size="lg" href="https://github.com/Evanston09/pentos/blob/main/hardware/Pentos.step">
+							View STEP model
 						</Button>
-						<Button class="w-full sm:w-auto" variant="outline" size="lg" href="#">
-							View All Files
+						<Button class="w-full sm:w-auto" variant="outline" size="lg" href="https://github.com/Evanston09/pentos/tree/main/hardware">
+							Browse hardware files
 						</Button>
 					</Fragment>
 				</CallToAction>
